@@ -360,7 +360,7 @@ div.bar:not(:first-child) {
   width: 100%;
   height: 100vh;
   /*background-image: url("http://placehold.it/848x567");*/
-  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/op/bar-blur.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/op/caseysoutside-blur.jpg");
   background-size: cover;
   background-position: center center;
   position: fixed;
