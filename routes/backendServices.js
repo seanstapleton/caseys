@@ -144,7 +144,7 @@ module.exports = function(db, passport) {
       var message = {
         from: 'fiddlersonmain@gmail.com',
         to: 'fiddlersonmain@gmail.com',
-        subject: 'Contact Form: ' + data.name,
+        subject: 'Caseys Contact Form: ' + data.name,
         text: "Name: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phone + "\nSubject: " + data.subject + "\nMessage: " + data.message
       };
 

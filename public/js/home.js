@@ -160,8 +160,9 @@
 
     $.get('/backendServices/featuredEvents', function(data) {
       var evs = data.events;
-      console.log(evs);
-      for (var i = 0; i < evs.length && i < 7; i++) {
+      var length = (evs.length > 6) ? 7 : evs.length;
+      console.log(length);
+      for (var i = length-1; i >= 0; i--) {
         var date = moment(evs[i].start).format("MMMM Do @ h:mm a");
         var anchor = $('<a href='+evs[i].url+'></a>');
         l = i;
@@ -171,9 +172,10 @@
         div.append($("<h4></h4>").text(evs[i].title), $("<p></p>").text(date));
         anchor.append(div);
         if (i < 4) anchor.addClass("desktop-item");
-        $("#featured-evs").prepend(anchor);
+        $("#db-evs").append(anchor);
       }
       if (isMobile) $("#events-more div").attr("data-aos-delay", "0");
+
     });
 
     // $.get('/backendServices/getFBID', function(fbid) {
@@ -383,6 +385,8 @@
         alert("test");
       });
     });
+
+    $("#reservation fieldset").css("height", $(".datepicker").height());
 
   });
 }());
