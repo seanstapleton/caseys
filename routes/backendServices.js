@@ -145,7 +145,7 @@ module.exports = function(db, passport) {
         from: 'fiddlersonmain@gmail.com',
         to: 'fiddlersonmain@gmail.com',
         subject: 'Contact Form: ' + data.name,
-        text: "Name: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phone + "\nSubject: " + data.subject + "\nMessage: " + data.message
+        text: "Name: " + data.name + "\nEmail: " + data.email + "\nMessage: " + data.message
       };
 
       smtpTransporter.sendMail(message, function(err, info) {

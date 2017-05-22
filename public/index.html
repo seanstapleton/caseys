@@ -10,352 +10,118 @@
         <meta name="author" content="">
         <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat:100,200i,200,300,400|Open+Sans|Secular+One|Suez+One" rel="stylesheet">
         <link rel='stylesheet' type="text/css" href='/lib/bootstrap/css/bootstrap.min.css'>
-        <link rel='stylesheet' href='/css/home.css'>
+        <style>
+          #contact:hover {
+            background: lightgrey;
+          }
+          #contact {
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .overlay {
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            background-color: rgba(55,55,55,0.8);
+          }
+          .show {
+            display: block !important;
+          }
+          input, textarea {
+            display: block;
+            width: 95% !important;
+            margin: auto;
+            margin-top: 5px;
+            min-height: 50px;
+          }
+          textarea {
+            min-height: 100px;
+          }
+          button {
+            width: 20%;
+            display: block;
+            margin-left: 40%;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            padding: 5px;
+          }
+          #contact-form {
+            background: lightgrey;
+            display: none;
+            position: fixed;
+            width: 30%;
+            top: 10vh;
+            margin-left: 35%;
+            padding: 20px;
+          }
+        </style>
         <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-          ga('create', 'UA-63292401-1', 'auto');
-          ga('send', 'pageview');
+        ga('create', 'UA-99774137-1', 'auto');
+        ga('send', 'pageview');
 
-        </script>
+      </script>
     </head>
-    <body>
-      <div id="overlay">
-        <p id="close">Close X</p>
-        <div id="contact-form">
-          <h1>Contact Us</h1>
-          <form class="col-md-6">
-            <div class="alert alert-success successmail">Message sent!</div>
-            <div class="alert alert-danger failmail">Bollocks, there's something wrong with the servers! Please try emailing declan@theharpandfiddle.com instead!</div>
-            <div id="contact-inputs">
-              <input required class="form-control" id="name" type="text" placeholder="full name"/>
-              <input required class="form-control" id="email" type="email" placeholder="email"/>
-              <input class="form-control" id="phone" type="tel" placeholder="phone number"/>
-              <input required class="form-control" id="subject" type="text" placeholder="subject"/>
-              <textarea required class="form-control" id="message" placeholder="message"></textarea>
-              <button class="btn btn-primary" id="contact-form-submit">Send</button>
-            </div>
-          </form>
-          <div id="contact-form-info" class="col-md-6">
-            <div class="bar"></div>
-            <p>declan@theharpandfiddle.com</p>
-            <p><a style="color: #333; font-weight: 400" href="tel:2694696400">(269) 469-6400</a></p>
-            <br/>
-            <p><span>Casey's Bar &amp Grill</span><span>136 N Whittaker St</span><span>New Buffalo, MI 49117</span>
-            <div class="bar"></div>
-            <img class="icon" src="/img/icons/fb-icon.svg"/>
-            <img class="icon" src="/img/icons/twitter-icon.svg"/>
-            <img class="icon" src="/img/icons/insta-icon.svg"/>
-            <p style="margin-left: 10px; float: left;">@theharpandfiddle</p>
-          </div>
-        </div>
-
-        <div id="tour-360">
-          <iframe data-aos="zoom-in-up" src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v1493947522552!6m8!1m7!1s4h2ZxnzZZ9gAAAQfDpCpIA!2m2!1d41.79589168061158!2d-86.74534769800971!3f236.18051604391565!4f-13.172600226446676!5f0.7820865974627469" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-
-        <div id="food">
-          <div class="selectContainer" style="overflow: auto">
-            <p>Menu: </p>
-            <select id="foodMenuSelector">
-              <option value="/img/menus/brunch.pdf">Brunch</option>
-              <option value="/img/menus/lunch.pdf" selected>Lunch</option>
-              <option value="/img/menus/dinner.pdf">Dinner</option>
-            </select>
-            <span style="float: right; background-color: green; padding: 16px; margin-top: -40px;" id="btn-oo" class="glf-button" data-glf-cuid="54184d32-b385-4993-8d7b-56408285995c" data-glf-ruid="2b4ec7ef-f180-4125-913a-76bd1658ea24" data-glf-auto-open="false"> Order Online</span>
-            <script src="https://www.foodbooking.com/widget/js/ewm2.js" defer async ></script>
-          </div>
-        </div>
-        <div id="drinks">
-          <div class="selectContainer">
-            <p>Menu: </p>
-            <select id="drinksMenuSelector">
-              <option value="/img/menus/beer.pdf" selected>Beer</option>
-              <option value="/img/menus/wine.pdf">Wine</option>
-            </select>
-          </div>
-        </div>
-        <div id="cocktails">
-          <div class="selectContainer">
-            <p>Menu: </p>
-            <select id="cocktailsMenuSelector">
-              <option value="/img/menus/cocktails.pdf" selected>Specialty Cocktails</option>
-            </select>
-          </div>
-        </div>
-        <div id="events-pu">
-          <div id="events-calendar"></div>
-        </div>
-
-
-        <img src="/img/icons/spin.svg" class="spinner"/>
+    <body style="background: url('/img/backgrounds/chipped-wood.jpg'); background-position: center top fixed; background-size: cover; width: 100%; height: 100%;">
+      <div class="overlay"></div>
+      <div id="contact-form">
+        <form>
+          <input class="form-control" type="text" id ="name" placeholder="name" required/>
+          <input class="form-control" type="text" id="email" placeholder="email" required/>
+          <textarea class="form-control" id="message" placeholder="message" required></textarea>
+          <button type="submit">Send</button>
+        </form>
       </div>
-      <div class="offscreen-nav-wrapper">
-        <div class="offscreen-nav">
-          <ul>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#social">Social</a></li>
-            <li><a href="#reserve">Reserve</a></li>
-            <li><a href="#menus">Menus</a></li>
-            <li id="contact" href="contact-form">Contact</li>
-          </ul>
-        </div>
-      </div>
-      <nav>
-        <div id="menu">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-      </nav>
-
-      <img id="show-360" class="animated slideInDown" src="/img/icons/tour.svg"/>
-      <section id="intro">
-        <h1>Casey's</h1>
-        <h2 class="animated slideInLeft">Bar &amp Grill</h2>
-      </section>
-
-      <div id="primary-container">
-        <div class="top-nav">
-          <ul>
-            <li id="contact-topnav" href="contact-form">Contact</li>
-            <li><a href="https://www.yelp.com/reservations/the-harp-and-fiddle-park-ridge" target="_blank">Reserve</a></li>
-            <li><a href="#social">Social</a></li>
-            <li><a href="#menus">Menus</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#events">Events</a></li>
-          </ul>
-        </div>
-
-
-        <section id="events">
-          <h1>Upcoming Events</h1>
-          <div id="featured-evs">
-            <a id="events-more" style="cursor: pointer">
-              <div class='ev-box' id="see
-              more" data-aos='fade-left' data-aos-delay="1600" data-aos-anchor-placement='center-bottom'>
-                <h4>See more...</h4>
-                <p>More events at Casey's Bar &amp Grill</p>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <section id="about">
-          <h1>Where to find us</h1>
-          <div id="about-container">
-          <div id="location-map">
-            <div class="map-overlay"></div>
-            <iframe data-aos="zoom-in-up" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2974.504478030399!2d-86.74534769800971!3d41.79589168061158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88110355c0b76a11%3A0x946a49054ddf47f!2sCasey&#39;s+Bar+%26+Grill!5e0!3m2!1sen!2sus!4v1493949288145" frameborder="0" style="border:0" allowfullscreen></iframe>
-          </div>
-          <div id="contact-info-body">
-          <p id="contact-info"><span id="address">Casey's Bar &amp Grill<br/>136 N Whittaker St,<br/>New Buffalo, MI 49117</span><br/><a id="ph-num" href="tel:8477204466">(269) 469-6400</a><br/><span id="email-info">declan@theharpandfiddle.com</span></p></div>
-          <div id="hours-of-operation">
-            <table class="table">
-              <thead>
-                <th>Hours</th>
-                <th></th>
-              </thead>
-              <tr>
-                <td>Mon-Thurs</td>
-                <td>12pm-9pm</td>
-              </tr>
-              <tr>
-                <td>Fri-Sat</td>
-                <td>12pm-10pm</td>
-              </tr>
-              <tr>
-                <td>Sunday</td>
-                <td>12pm-10pm</td>
-              </tr>
-            </table>
-          </div>
-
-          <div id="reservation" class="desktop-item">
-            <p>Reserve a Table</p>
-            <div class="datepicker"></div>
-            <fieldset>
-              <select id="time-desktop" class="time">
-                <option value="1100" selected>11am</option>
-                <option value="1130">11:30am</option>
-                <option value="1200">12:00pm</option>
-                <option value="1230">12:30pm</option>
-                <option value="1300">1:00pm</option>
-                <option value="1330">1:30pm</option>
-                <option value="1400">2:00pm</option>
-                <option value="1430">2:30pm</option>
-                <option value="1500">3:00pm</option>
-                <option value="1530">3:30pm</option>
-                <option value="1600">4:00pm</option>
-                <option value="1630">4:30pm</option>
-                <option value="1700">5:00pm</option>
-                <option value="1730">5:30pm</option>
-                <option value="1800">6:00pm</option>
-                <option value="1830">6:30pm</option>
-                <option value="1900">7:00pm</option>
-                <option value="1930">7:30pm</option>
-                <option value="2000">8:00pm</option>
-                <option value="2030">8:30pm</option>
-                <option value="2100">9:00pm</option>
-                <option value="2130">9:30pm</option>
-              </select>
-              <select id="party-desktop" class="party">
-                <option value="1">1 person</option>
-                <option value="2" selected>2 people</option>
-                <option value="3">3 people</option>
-                <option value="4">4 people</option>
-                <option value="5">5 people</option>
-                <option value="6">6 people</option>
-              </select>
-              <div class="btn-container">
-                <button id="reserve-btn-desktop">Reserve Now</button>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        </section>
-
-        <section id="reserve" class="mobile-item">
-          <h1>Reserve a Table</h1>
-          <input style="display: none" name="dateval" id="dateval"/>
-          <div class="datepicker"></div>
-          <fieldset>
-            <select id="time" class="time">
-              <option value="1100" selected>11am</option>
-              <option value="1130">11:30am</option>
-              <option value="1200">12:00pm</option>
-              <option value="1230">12:30pm</option>
-              <option value="1300">1:00pm</option>
-              <option value="1330">1:30pm</option>
-              <option value="1400">2:00pm</option>
-              <option value="1430">2:30pm</option>
-              <option value="1500">3:00pm</option>
-              <option value="1530">3:30pm</option>
-              <option value="1600">4:00pm</option>
-              <option value="1630">4:30pm</option>
-              <option value="1700">5:00pm</option>
-              <option value="1730">5:30pm</option>
-              <option value="1800">6:00pm</option>
-              <option value="1830">6:30pm</option>
-              <option value="1900">7:00pm</option>
-              <option value="1930">7:30pm</option>
-              <option value="2000">8:00pm</option>
-              <option value="2030">8:30pm</option>
-              <option value="2100">9:00pm</option>
-              <option value="2130">9:30pm</option>
-            </select>
-            <select id="party" class="party">
-              <option value="1">1 person</option>
-              <option value="2" selected>2 people</option>
-              <option value="3">3 people</option>
-              <option value="4">4 people</option>
-              <option value="5">5 people</option>
-              <option value="6">6 people</option>
-            </select>
-            <div class="btn-container">
-              <button id="reserve-btn">Reserve Now</button>
-            </div>
-          </fieldset>
-        </section>
-
-        <section id="menus">
-          <h1 class="mobile-item">Menu</h1>
-          <div id="foodCard" class="menu-box foodLink mobile-item" data-aos="zoom-in"><h4 class="foodLink">Food</h4></div>
-          <div id="drinksCard" class="menu-box drinksLink mobile-item" data-aos="zoom-in"><h4 class="drinksLink">Drinks</h4></div>
-          <div id="cocktailsCard" class="menu-box cocktailsLink mobile-item" data-aos="zoom-in"><h4 class="cockatilsLink">Cocktails</h4></div>
-          <svg viewBox="0 0 100 60" class="desktop-item">
-            <defs>
-            <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
-              <image xlink:href="/img/backgrounds/op/bar.jpg" x="0" y="-35" width="100" height="100" />
-            </pattern>
-            <pattern id="img2" patternUnits="userSpaceOnUse" width="100" height="100">
-              <image xlink:href="/img/backgrounds/op/barside.jpg" x="0" y="-20" width="100" height="100" />
-            </pattern>
-            <pattern id="img3" patternUnits="userSpaceOnUse" width="100" height="100">
-              <image xlink:href="/img/backgrounds/op/chat.jpg" x="0" y="0" width="100" height="100" />
-            </pattern>
-            <linearGradient id="overlayGradientDark">
-              <stop offset="5%" stop-color="rgba(0,0,0,0.4)" />
-              <stop offset="95%" stop-color="rgba(0,0,0,0.4)" />
-            </linearGradient>
-            <linearGradient id="overlayGradientLight">
-              <stop offset="5%" stop-color="rgba(0,0,0,0.1)" />
-              <stop offset="95%" stop-color="rgba(0,0,0,0.1)" />
-            </linearGradient>
-          </defs>
-            <polygon data-aos="fade-left" points="0,0 100,0 100,15 0,22.5" style="fill: url(#img1)"/>
-            <polygon class="overlayGradient foodLink" data-aos="fade-left" points="0,0 100,0 100,15 0,22.5"/>
-            <text class="foodLink" data-aos="fade" data-aos-delay="1500" y="11.25" x="10" text-anchor="start" alignment-baseline="middle" font-family="Great Vibes" font-weight="400" fill="#fff" font-size="0.4em">Food</text>
-            <polygon data-aos="fade-right" points="0,22.5 100,15 100,45 0,37.5" style="fill: url(#img2)"/>
-            <polygon class="overlayGradient drinksLink" data-aos="fade-right" points="0,22.5 100,15 100,45 0,37.5"/>
-            <text class="drinksLink" data-aos="fade" data-aos-delay="1500" y="30" x="90" text-anchor="end" alignment-baseline="middle" font-family="Great Vibes" font-weight="400" fill="#fff" font-size="0.4em">Drinks</text>
-            <polygon data-aos="fade-left" points="0,37.5 100,45 100,60 0,60" style="fill: url(#img3)"/>
-            <polygon class="overlayGradient cocktailsLink" data-aos="fade-left" points="0,37.5 100,45 100,60 0,60"/>
-            <text class="coctailsLink" data-aos="fade" data-aos-delay="1500" y="48.75" x="10" text-anchor="start" alignment-baseline="middle" font-family="Great Vibes" font-weight="400" fill="#fff" font-size="0.4em">Cocktails</text>
-          </svg>
-        </section>
-
-        <section id="social">
-          <h2 style="margin-top: -10px; margin-bottom: 0; padding: 10px">#caseysnewbuffalo</h2>
-          <div id="ig-links"></div>
-        </section>
-
-        <footer>
-          <div class="tbl">
-            <ul id="soc-links">
-              <li><a href="https://www.facebook.com/caseysnewbuffalomichigan/" target="_blank"><img src="/img/icons/fb-icon-white.svg"></a></li>
-              <li><a href="https://www.instagram.com/explore/locations/314368795/caseys-new-buffalo/" target="_blank"><img src="/img/icons/insta-icon-white.svg"></a></li>
-              <li><a href="https://twitter.com/Caseys269" target="_blank"><img src="/img/icons/twitter-icon-white.svg"></a></li>
-            </ul>
-          </div>
-          <div class="tbl">
-            <ul>
-              <li><a href="#events">Events</a></li>
-              <li><a href="#about">About</a></li>
-              <li class="mobile-item-inline"><a href="#reserve">Reserve</a></li>
-              <li class="desktop-item-inline"><a href="https://www.yelp.com/reservations/the-harp-and-fiddle-park-ridge" target="_blank">Reserve</a></li>
-              <li><a href="#menus">Menu</a></li>
-            </ul>
-          </div>
-
-          <p>Website by // Sean Stapleton</p>
-
-        </footer>
-      </div>
+      <h1 style="text-align: center; color: #fff; margin-top: 10vh; margin-bottom: 10vh; font-weight: bold">Website Maintenance</h1>
+      <p style="text-align: center; color: #fff; width: 35%; margin: auto; font-size: 24px; line-height: 45px">Sorry for the inconvenience.</p>
+      <p style="text-align: center; color: #fff; width: 35%; margin: auto; font-size: 24px; line-height: 45px"> We are currently building a new website. You can find all the information about menus, events &amp opening times on our <a href="http://facebook.com/caseysnewbuffalomichigan" style="color: #fff; text-decoration: underline">Facebook page!</a></p>
+      <p style="text-align: center; color: #fff; width: 35%; margin: auto; font-size: 24px; line-height: 45px">Please don't hesitate to email or call us today at <a href="tel: 2694696400" style="color: #fff; text-decoration: underline">(269) 469-6400</a>. Thank you for your understanding!</p>
+      <p style="text-align: center; margin-top: 50px;"><a id="contact" style="font-size: 24px; color: #fff; border: 2px solid #fff; padding: 10px">Contact Us</a></p>
     </body>
+    <script type='text/javascript' src='/lib/jquery/jquery.min.js'></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#contact").click(function() {
+          console.log("yo");
+          $(".overlay, #contact-form").toggleClass("show");
+        });
+
+        $(".overlay").click(function() {
+          $(".overlay, #contact-form").toggleClass("show");
+        });
+
+        $("#contact-form form").submit(function() {
+          var formData = {
+            "name": $("#name").val(),
+            "email": $("#email").val(),
+            "message": $("#message").val()
+          }
+          $.post("/backendServices/sendMessage", formData, function(data) {
+            var response;
+            var msg = {
+              "success": "Your message was sent",
+              "error": "please try sending an email to declan@theharpandfiddle.com instead!"
+            }
+            if (data.success) {
+              response = "success";
+              alert(reponse);
+            }
+            else {
+              response = "error";
+              alert(response);
+            }
+          });
+        });
+      });
+    </script>
 </html>
-<link rel="stylesheet" href="/lib/fullcalendar/jquery-ui.min.css"/>
-<link rel="stylesheet" href="/lib/fullcalendar/fullcalendar.min.css"/>
-<link rel="stylesheet" href="/lib/fullcalendar/fullcalendar.print.css" media="print"/>
-<link href='/lib/animate.css/animate.min.css' rel='stylesheet'>
-<link href='/lib/aos/dist/aos.css' rel='stylesheet'>
-<link href="/lib/slick/slick.css" rel="stylesheet">
-<link href="/lib/slick/slick-theme.css" rel="stylesheet">
-<link href="/lib/sweetalert/sweetalert.css" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
-<!-- <script type="text/javascript">
-  !function(e,n){var t=document.createElement("script"),a=document.getElementsByTagName("script")[0];t.async=1,a.parentNode.insertBefore(t,a),t.onload=t.onreadystatechange=function(e,a){(a||!t.readyState||/loaded|complete/.test(t.readyState))&&(t.onload=t.onreadystatechange=null,t=void 0,a||n&&n())},t.src=e}("https://embed-menu-preloader.untappdapi.com/embed-menu-preloader.min.js",function(){PreloadEmbedMenu("menu-container",6484,22214)});
-</script> -->
-<script type='text/javascript' src='/lib/jquery/jquery.min.js'></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    var intro_img = $("<img>");
-    intro_img.load(function(){
-     $("#intro").css("background-image", "linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('"+$(this).attr("src")+"')");
-    });
-    intro_img.attr("src", "/img/backgrounds/caseysoutside.jpg");
-  });
-</script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="/lib/fullcalendar/moment.min.js"></script>
-<script src="/lib/moment/moment-timezone.min.js"></script>
-<script src="/lib/fullcalendar/fullcalendar.min.js"></script>
-<script src="/lib/pdfjs/build/pdf.js"></script>
-<script src="/lib/stickyjs/sticky.min.js"></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src='/lib/aos/dist/aos.js'></script>
-<script type="text/javascript" src="/lib/slick/slick.min.js"></script>
-<script type="text/javascript" src="/lib/sweetalert/sweetalert.min.js"></script>
-<script type="text/javascript" src="/js/home.js"></script>
