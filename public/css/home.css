@@ -29,13 +29,6 @@ p, h1, h2, h3, h4, h5, h6, td, a, li {
 td {
   color: #000;
 }
-.map-overlay {
-  position: absolute;
-  width: 85%;
-  margin-left: 7.5%;
-  height: 40vh;
-  z-index: 999;
-}
 #overlay {
   width: 100%;
   height: 100%;
@@ -360,7 +353,7 @@ div.bar:not(:first-child) {
   width: 100%;
   height: 100vh;
   /*background-image: url("http://placehold.it/848x567");*/
-  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/img/backgrounds/caseysoutside.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/caseysoutside.jpg");
   background-size: cover;
   background-position: center center;
   position: fixed;
@@ -474,10 +467,6 @@ div.bar:not(:first-child) {
 #about td:nth-child(2n) {
   text-align: left;
 }
-#about table {
-  width: 70%;
-  margin: 40px 15%;
-}
 #contact-link {
   font-family: Montserrat;
   font-weight: 400;
@@ -486,39 +475,6 @@ div.bar:not(:first-child) {
   color: #fff;
   text-align: center;
   text-transform: uppercase;
-}
-#contact-info {
-  width: 85%;
-  margin: 40px 7.5%;
-  display: block;
-  font-size: 2em;
-}
-#email-info {
-  background-image: url('/img/icons/mail.svg');
-  background-position: left center;
-  background-repeat: no-repeat;
-  padding-left: 70px;
-  font-size: 0.6em !important;
-}
-#ph-num {
-  background-image: url('/img/icons/phone.svg');
-  background-position: left center;
-  background-repeat: no-repeat;
-  padding-left: 70px;
-}
-#address {
-  display: block;
-  padding-top: 0;
-  padding-left: 70px;
-  background-image: url('/img/icons/address.svg');
-  background-position: left top;
-  background-size: 50px;
-  background-repeat: no-repeat;
-}
-#about th {
-  font-size: 2em;
-  font-family: Montserrat;
-  color: #ddd;
 }
 .menu-box {
   width: 45vh;
@@ -749,6 +705,9 @@ ul#soc-links {
   #featured-evs div p {
     font-size: 1em;
   }
+  #db-evs {
+    width: 100%;
+  }
   .ev-box {
     width: 100%;
     height: 100px;
@@ -761,7 +720,7 @@ ul#soc-links {
   #events {
     overflow: auto;
     padding: 0;
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("/img/backgrounds/bench.jpeg");
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.jpeg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -780,102 +739,53 @@ ul#soc-links {
   /* ----------------------------------------------
   ---------------- About Styles -------------------
   ---------------------------------------------- */
-  #about h1 {
-    text-align: left;
-    font-size: 3em;
-    margin-left: 40px;
-  }
-  #about iframe {
+  #location-map iframe {
+    width: 100%;
+    height: 96vh;
+    margin: 0;
     float: left;
-    width: 90%;
-    height: 100%;
-    margin-left: 10%;
   }
-  #location-map {
-    position: relative;
+  #location-map, .map-overlay {
+    width: 70%;
+    height: 96vh;
+    margin: 0;
+    float: left;
   }
   .map-overlay {
-    height: 100%;
+    position: absolute;
+    z-index: 999;
+  }
+  #contact-info {
+    width: 30%;
+    height: 96vh;
+    float: left;
+    background-color: rgba(240,240,240,1);
+  }
+  .contact-block {
     width: 90%;
-    margin-left: 10%;
+    padding: 20px;
+    margin: 5% auto;
+    background: #fff;
   }
-  #about p {
-    font-size: 2em;
+  .contact-block p, .contact-block a, .contact-block h4 {
+    color: #111;
   }
-  #about {
-    padding-bottom: 40px !important;
+  .contact-block h4 {
+    font-size: 1.6em;
   }
-  #about {
-    overflow: auto;
-    padding: 20px 0;
-  }
-  #location-map, #hours-of-operation, #contact-info-body, #reservation {
-    width: 50%;
-    height: 50vh;
-    overflow: hidden;
-    float: left;
-  }
-  #reservation {
-    padding: 40px;
-    height: auto;
-  }
-  .datepicker {
-    width: 266px;
-    height: 100%;
-    float: left;
-    margin: 0;
-  }
-  #reservation fieldset {
-    float: left;
-    margin: 0;
-    height: 298.98px;
-    background-color: rgb(237, 237, 237);
-    padding-top: 30px;
-  }
-  #about {
-    overflow: auto;
-  }
-  #time-desktop-button, #party-desktop-button {
+  .contact-block p {
     font-size: 1em;
-    display: block;
-    margin: 0;
-    width: 200px;
   }
-  .btn-container {
-    width: 200px;
-    margin: 0;
-    background-color: rgb(237, 237, 237);
+  .contact-block th {
+    color: #111;
+    font-family: Montserrat;
+    font-weight: 300;
+    font-size: 1.6em;
   }
-  #reserve-btn-desktop {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    font-size: 1em;
-    width: 95%;
-    display: block;
-    margin: auto;
-    background-color: rgb(211, 35, 35);
-    color: #fff;
-  }
-  div.ui-datepicker {
-    margin: auto;
-    font-size: 0.5em;
-  }
-  div.ui-datepicker-inline {
-    width: 38em !important;
-  }
-  .ui-datepicker-header {
-    font-size: 2em;
-  }
-  div.menu-box {
-    width: 33.3%;
-    float: left;
-    margin: 0;
-  }
-  #about-container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
+  .contact-block td {
+    font-size: 1em !important;
+    color: #111 !important;
+    font-weight: 200;
   }
 
   /* ----------------------------------------------
@@ -916,55 +826,84 @@ ul#soc-links {
   /* ----------------------------------------------
   ----------------- Menu Styles -------------------
   ---------------------------------------------- */
-  .menu-page {
-    margin: 0 auto;
-  }
-  .selectContainer {
-    width: 70%;
-    background-color: rgba(238,238,238,0.8);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    margin-left: 15%;
-  }
-  .selectContainer p {
-    color: #000;
+  .menu-block {
     float: left;
-    margin-top: calc(10px);
-    margin-right: 10px;
-    margin-left: 20px;
-  }
-  #foodMenuSelector, #drinksMenuSelector, #cocktailsMenuSelector {
-    display: block;
-    width: 25%;
-    min-height: 40px;
-    height: 40px;
-  }
-  #menu {
-    display: none;
-  }
-  #menus {
-    overflow: hidden;
-  }
-  #menus {
-    background-color: #000;
-    overflow: auto;
-  }
-  #menus h1 {
-    color: #fff;
-  }
-  #foodLink {
-    color: #fff;
-  }
-  #foodLinkText, #drinksLinkText, #cocktailsLinkText {
+    background-image: url("http://placehold.it/200x200");
+    background-position: center center;
+    background-size: cover;
     cursor: pointer;
   }
-  #menus {
-    position: relative;
+  .col-80 {
+    width: 80%;
+    float: left;
   }
-  #food canvas, #drinks canvas, #cocktails canvas {
-    width: 70%;
-    margin: 0 auto;
+  .col-20 {
+    width: 20%;
+    float: left;
+  }
+  .food-block {
+    width: 68.75%;
+    height: 80vh;
+    background-image: url("/img/backgrounds/burger.jpeg");
+  }
+  .food-block h5 {
+    line-height: 80vh;
+  }
+  .beer-block {
+    width: 31.25%;
+    height: 80vh;
+    background-image: url("/img/backgrounds/beer.jpeg");
+  }
+  .beer-block h5 {
+    line-height: 80vh;
+  }
+  .specials-block {
+    width: 100%;
+    height: 30vh;
+    background-image: url("/img/backgrounds/special.jpeg");
+  }
+  .specials-block h5 {
+    line-height: 30vh;
+  }
+  .wine-block {
+    width: 100%;
+    height: 70vh;
+    background-image: url("/img/backgrounds/wine.jpeg");
+  }
+  .wine-block h5 {
+    line-height: 70vh;
+  }
+  .dessert-block {
+    width: 62.5%;
+    height: 20vh;
+    background-image: url("/img/backgrounds/dessert.jpeg");
+  }
+  .dessert-block h5 {
+    line-height: 20vh;
+  }
+  .cocktails-block {
+    width: 37.5%;
+    height: 20vh;
+    background-image: url("/img/backgrounds/beautifulday.jpg");
+  }
+  .cocktails-block h5 {
+    line-height: 20vh;
+  }
+  .block-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+  }
+  .block-overlay h5 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 3em;
+    text-align: center;
+    margin: 0;
+  }
+  .show {
+    display: block;
   }
 
   /* ----------------------------------------------

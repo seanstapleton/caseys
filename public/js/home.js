@@ -15,9 +15,9 @@
 
     var isMobile = !window.matchMedia('(min-width: 960px)').matches;
 
-    $(".overlayGradient").mouseover(function() {
-      $(".overlayGradient").css("fill", "url(#overlayGradientDark)");
-      $(this).css("fill", "url(#overlayGradientLight)");
+    $(".menu-block").mouseover(function() {
+      $(".menu-block .block-overlay").removeClass("show");
+      $(this).find(".block-overlay").addClass("show");
     });
 
     $(".top-nav").sticky({topSpacing: 0});
@@ -167,7 +167,7 @@
         var anchor = $('<a href='+evs[i].url+'></a>');
         l = i;
         if (isMobile) l = 7;
-        var div = $("<div class='ev-box' data-aos='fade-left' data-aos-delay="+(1400-l*200)+" data-aos-anchor-placement='center-bottom'></div>");
+        var div = $("<div class='ev-box' data-aos='fade-left' data-aos-delay="+(0)+" data-aos-anchor-placement='center-bottom'></div>");
         if (evs[i].img) div.css("background-image", "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(" + evs[i].img + ")");
         div.append($("<h4></h4>").text(evs[i].title), $("<p></p>").text(date));
         anchor.append(div);
