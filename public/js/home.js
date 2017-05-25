@@ -238,7 +238,7 @@
     $("#close").click(function() {
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
-      var panels = ["#tour-360","#food", "#drinks", "#cocktails", "#contact-form", "#events-pu"];
+      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#specials", "#desserts", "#wine", "#contact-form", "#events-pu"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
         if (p.hasClass("show")) p.toggleClass("show");
@@ -314,32 +314,25 @@
       }
     });
 
-    $("#drinksMenuSelector").change(function() {
-      var currentMenu = $(this).find(":selected");
-
+    $(".beerLink").click(function() {
+      $("#overlay").toggleClass("show");
+      $("#beer").toggleClass("show");
+      $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
-
-      $("#drinks").find("canvas").each(function() {
-        if (!$(this).hasClass(currentMenu.text()) && $(this).hasClass("show")) $(this).toggleClass("show");
-      });
-
-      var menuObj = $("#drinks").find("." + currentMenu.text());
-      if (menuObj.length != 0 && !menuObj.hasClass("show")) {
-        menuObj.toggleClass("show");
-        $(".spinner").removeClass("show");
-      } else if (menuObj.length == 0){
-        displayMenu(currentMenu.val(),currentMenu.text(),"#drinks");
+      if ($("#beer").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/beer.pdf";
+        displayMenu(currentMenu,"beerMenu","#beer");
       }
     });
 
-    $(".drinksLink").click(function() {
+    $(".wineLink").click(function() {
       $("#overlay").toggleClass("show");
-      $("#drinks").toggleClass("show");
+      $("#wine").toggleClass("show");
       $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
-      if ($("#drinks").find("canvas").length == 0) {
-        var currentMenu = $("#drinksMenuSelector").find(":selected");
-        displayMenu(currentMenu.val(),currentMenu.text(),"#drinks");
+      if ($("#wine").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/wine.pdf";
+        displayMenu(currentMenu,"wineMenu","#wine");
       }
     });
 
@@ -349,12 +342,32 @@
       $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
       if ($("#cocktails").find("canvas").length == 0) {
-        var currentMenu = $("#cocktailsMenuSelector").find(":selected");
-        displayMenu(currentMenu.val(),currentMenu.text(),"#cocktails");
+        var currentMenu = "/img/menus/cocktails.pdf";
+        displayMenu(currentMenu,"cocktailsMenu","#cocktails");
       }
     });
 
+    $(".specialsLink").click(function() {
+      $("#overlay").toggleClass("show");
+      $("#specials").toggleClass("show");
+      $("body").toggleClass("noscroll");
+      $(".spinner").toggleClass("show");
+      if ($("#specials").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/specials.pdf";
+        displayMenu(currentMenu,"specialsMenu","#specials");
+      }
+    });
 
+    $(".dessertsLink").click(function() {
+      $("#overlay").toggleClass("show");
+      $("#desserts").toggleClass("show");
+      $("body").toggleClass("noscroll");
+      $(".spinner").toggleClass("show");
+      if ($("#drinks").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/desserts.pdf";
+        displayMenu(currentMenu,"dessertsMenu","#desserts");
+      }
+    });
 
     $("#contact-form-submit").click(function() {
       var formData = {
@@ -386,7 +399,56 @@
       });
     });
 
+    Date.prototype.yyyymmdd = function() {
+      var mm = this.getMonth() + 1; // getMonth() is zero-based
+      var dd = this.getDate();
+
+      return [this.getFullYear(),
+              (mm>9 ? '' : '0') + mm,
+              (dd>9 ? '' : '0') + dd
+            ].join('-');
+    };
+
     $("#reservation fieldset").css("height", $(".datepicker").height());
+
+    var setUpReservations = function() {
+
+      var timeSelect = $("#reserve-time-block");
+      var d = new Date();
+      $("#reserve-date-block").val(d.yyyymmdd());
+      var day = d.getDay();
+      var hoo = (day > 0 && day < 5) ? 21 : 22;
+      var time = d.getHours();
+      if (d.getMinutes() < 30) {
+        var am = (time < 12) ? "am" : "pm";
+        timeSelect.append($("<option></option>").val("" + time % 12 + ":30" + am).text("" + time % 12 + ":30" + am));
+      }
+      for (var i = time + 1; i < hoo; i++) {
+        var am = (i < 12) ? "am" : "pm";
+        timeSelect.append($("<option></option>").val("" + i % 12 + ":00" + am).text("" + i % 12 + ":00" + am));
+        timeSelect.append($("<option></option>").val("" + i % 12 + ":30" + am).text("" + i % 12 + ":30" + am));
+      }
+    }
+    setUpReservations();
+
+    $("#reserve-table").submit(function(e) {
+      var formData = {
+        name: $("#res-name").val(),
+        email: $("#res-email").val(),
+        phnum: $("#res-phnum").val(),
+        size: $("#res-size").val(),
+        date: $("#reserve-date-block").val(),
+        time: $("#reserve-time-block").val()
+      }
+
+      $.post("/backendServices/reserveTable", formData, function(data) {
+        if (data.success) swal("Your request has been sent", "Please wait for an email confirmation or call (269) 469-6400", "success");
+        else swal("There was an error with your request", "Please call (269) 469-6400", "error");
+      });
+      
+      return false;
+    });
+
 
   });
 }());

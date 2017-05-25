@@ -145,7 +145,35 @@ module.exports = function(db, passport) {
         from: 'fiddlersonmain@gmail.com',
         to: 'fiddlersonmain@gmail.com',
         subject: 'Caseys Contact Form: ' + data.name,
-        text: "Name: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phone + "\nSubject: " + data.subject + "\nMessage: " + data.message
+        text: "Name: " + data.name + "\nEmail: " + data.email + "\nMessage: " + data.message
+      };
+
+      smtpTransporter.sendMail(message, function(err, info) {
+         if (err) {
+            console.log(err);
+            return res.send({success: false, err: err});
+         } else {
+            console.log(info);
+            return res.send({success: true});
+         }
+      });
+    });
+
+    router.post('/reserveTable', function(req, res, next) {
+      var auth = {
+        auth: {
+          api_key: process.env.api_key,
+          domain: process.env.domain
+        }
+      }
+      var data = req.body;
+      var result;
+      var smtpTransporter = nodemailer.createTransport(mg(auth));
+      var message = {
+        from: 'fiddlersonmain@gmail.com',
+        to: 'fiddlersonmain@gmail.com',
+        subject: 'Caseys Reservation: ' + data.name,
+        text: "Date: " + data.date + "\nTime: " + data.time + "\nName: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phnum + "\nParty Size: " + data.size
       };
 
       smtpTransporter.sendMail(message, function(err, info) {

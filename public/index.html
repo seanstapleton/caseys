@@ -69,23 +69,14 @@
             <script src="https://www.foodbooking.com/widget/js/ewm2.js" defer async ></script>
           </div>
         </div>
-        <div id="drinks">
-          <div class="selectContainer">
-            <p>Menu: </p>
-            <select id="drinksMenuSelector">
-              <option value="/img/menus/beer.pdf" selected>Beer</option>
-              <option value="/img/menus/wine.pdf">Wine</option>
-            </select>
-          </div>
-        </div>
-        <div id="cocktails">
-          <div class="selectContainer">
-            <p>Menu: </p>
-            <select id="cocktailsMenuSelector">
-              <option value="/img/menus/cocktails.pdf" selected>Specialty Cocktails</option>
-            </select>
-          </div>
-        </div>
+        <div id="beer"></div>
+        <div id="wine"></div>
+        <div id="cocktails"></div>
+        <div id="specials"></div>
+        <div id="desserts"></div>
+
+
+
         <div id="events-pu">
           <div id="events-calendar"></div>
         </div>
@@ -148,7 +139,7 @@
             <div class="map-overlay"></div>
             <iframe data-aos="zoom-in-up" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2974.504478030399!2d-86.74534769800971!3d41.79589168061158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88110355c0b76a11%3A0x946a49054ddf47f!2sCasey&#39;s+Bar+%26+Grill!5e0!3m2!1sen!2sus!4v1493949288145" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
-          <div id="contact-info">
+          <div id="contact-info" data-aos="fade-left">
             <div class="contact-block">
               <h4>Casey's Bar &amp Grill</h4>
               <p>136 Whittaker St,<br/>New Buffalo, MI 49117<br/><a id="ph-num" href="tel:8477204466">(269) 469-6400</a></p>
@@ -174,20 +165,34 @@
                 </tr>
               </table>
             </div>
+            <div id="reservation-block" class="contact-block">
+              <h4>Reserve a Table</h4>
+              <form id="reserve-table">
+                <input id="reserve-date-block" type="date"/>
+                <select id="reserve-time-block">
+                  <!-- <option selected disabled value="null">Please select a time</option> -->
+                </select>
+                <input type="text" id="res-name" placeholder="Name"/>
+                <input type="text" id="res-email" placeholder="Email"/>
+                <input type="text" id="res-phnum" placeholder="Phone Number"/>
+                <input type="text" id="res-size" placeholder="Party Size"/>
+                <button type="submit">Reserve</button>
+              </form>
+            </div>
           </div>
 
         </section>
 
         <section id="menus">
           <div class="col-80">
-            <div class="menu-block food-block"><div class="block-overlay"><h5>Food</h5></div></div>
-            <div class="menu-block beer-block"><div class="block-overlay"><h5>Beer</h5></div></div>
-            <div class="menu-block dessert-block"><div class="block-overlay"><h5>Dessert</h5></div></div>
-            <div class="menu-block cocktails-block"><div class="block-overlay"><h5>Cocktails</h5></div></div>
+            <div class="menu-block food-block foodLink"><div class="block-overlay"><h5>Food</h5></div></div>
+            <div class="menu-block beer-block beerLink"><div class="block-overlay"><h5>Beer</h5></div></div>
+            <div class="menu-block dessert-block dessertsLink"><div class="block-overlay"><h5>Dessert</h5></div></div>
+            <div class="menu-block cocktails-block cocktailsLink"><div class="block-overlay"><h5>Cocktails</h5></div></div>
           </div>
           <div class="col-20">
-            <div class="menu-block specials-block"><div class="block-overlay"><h5>Specials</h5></div></div>
-            <div class="menu-block wine-block"><div class="block-overlay"><h5>Wine</h5></div></div>
+            <div class="menu-block specials-block specialsLink"><div class="block-overlay"><h5>Specials</h5></div></div>
+            <div class="menu-block wine-block wineLink"><div class="block-overlay"><h5>Wine</h5></div></div>
           </div>
 
         </section>
