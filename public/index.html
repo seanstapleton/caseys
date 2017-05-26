@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat:100,200i,200,300,400|Open+Sans|Secular+One|Suez+One" rel="stylesheet">
         <link rel='stylesheet' type="text/css" href='/lib/bootstrap/css/bootstrap.min.css'>
         <link rel='stylesheet' href='/css/home.css'>
+        <link rel='stylesheet' href='/css/desktop.css'>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -90,7 +91,7 @@
             <li><a href="#events">Events</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social</a></li>
-            <li><a href="#reserve">Reserve</a></li>
+            <li><a href="#reservation-block">Reserve</a></li>
             <li><a href="#menus">Menus</a></li>
             <li id="contact" href="contact-form">Contact</li>
           </ul>
@@ -187,10 +188,17 @@
           <div class="col-80">
             <div class="menu-block food-block foodLink"><div class="block-overlay"><h5>Food</h5></div></div>
             <div class="menu-block beer-block beerLink"><div class="block-overlay"><h5>Beer</h5></div></div>
-            <div class="menu-block dessert-block dessertsLink"><div class="block-overlay"><h5>Dessert</h5></div></div>
-            <div class="menu-block cocktails-block cocktailsLink"><div class="block-overlay"><h5>Cocktails</h5></div></div>
+            <div class="menu-block dessert-block dessertsLink desktop-item"><div class="block-overlay"><h5>Dessert</h5></div></div>
+            <div class="col-50">
+              <div class="menu-block specials-block specialsLink mobile-item"><div class="block-overlay"><h5>Specials</h5></div></div>
+              <div class="menu-block cocktails-block cocktailsLink"><div class="block-overlay"><h5>Cocktails</h5></div></div>
+            </div>
+            <div class="col-50">
+              <div class="menu-block wine-block wineLink mobile-item"><div class="block-overlay"><h5>Wine</h5></div></div>
+            </div>
+            <div class="menu-block dessert-block dessertsLink mobile-item"><div class="block-overlay"><h5>Dessert</h5></div></div>
           </div>
-          <div class="col-20">
+          <div class="col-20 desktop-item">
             <div class="menu-block specials-block specialsLink"><div class="block-overlay"><h5>Specials</h5></div></div>
             <div class="menu-block wine-block wineLink"><div class="block-overlay"><h5>Wine</h5></div></div>
           </div>
@@ -214,7 +222,7 @@
             <ul>
               <li><a href="#events">Events</a></li>
               <li><a href="#about">About</a></li>
-              <li class="mobile-item-inline"><a href="#reserve">Reserve</a></li>
+              <li class="mobile-item-inline"><a href="#reservation-block">Reserve</a></li>
               <li class="desktop-item-inline"><a href="https://www.yelp.com/reservations/the-harp-and-fiddle-park-ridge" target="_blank">Reserve</a></li>
               <li><a href="#menus">Menu</a></li>
             </ul>

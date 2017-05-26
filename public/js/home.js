@@ -16,9 +16,16 @@
     var isMobile = !window.matchMedia('(min-width: 960px)').matches;
 
     $(".menu-block").mouseover(function() {
-      $(".menu-block .block-overlay").removeClass("show");
-      $(this).find(".block-overlay").addClass("show");
+      if (!isMobile) {
+        $(".menu-block .block-overlay").removeClass("show");
+        $(this).find(".block-overlay").addClass("show");
+      }
     });
+
+    if (isMobile) {
+      $(".block-overlay").css("background-color", "rgba(0,0,0,0.2)");
+      $(".menu-block .block-overlay").addClass("show");
+    }
 
     $(".top-nav").sticky({topSpacing: 0});
 
@@ -171,12 +178,14 @@
         if (evs[i].img) div.css("background-image", "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(" + evs[i].img + ")");
         div.append($("<h4></h4>").text(evs[i].title), $("<p></p>").text(date));
         anchor.append(div);
-        if (i < 4) anchor.addClass("desktop-item");
+        if (i > 2) anchor.addClass("desktop-item");
         $("#db-evs").append(anchor);
       }
       if (isMobile) $("#events-more div").attr("data-aos-delay", "0");
 
     });
+
+    if (!isMobile) $("#location-map iframe, .map-overlay").height($("#contact-info").height());
 
     // $.get('/backendServices/getFBID', function(fbid) {
     //   $.get('https://graph.facebook.com/parkridgebar/photos?type=uploaded&&access_token=' + fbid, function(data) {
@@ -445,7 +454,7 @@
         if (data.success) swal("Your request has been sent", "Please wait for an email confirmation or call (269) 469-6400", "success");
         else swal("There was an error with your request", "Please call (269) 469-6400", "error");
       });
-      
+
       return false;
     });
 

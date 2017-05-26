@@ -58,6 +58,13 @@ td {
   min-height: 100vh;
   background: #000;
 }
+#events {
+  padding: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.jpeg");
+  background-position: left center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 #social {
   width: 100%;
   background: #000;
@@ -368,7 +375,7 @@ div.bar:not(:first-child) {
 #intro h1 {
   font-family: Montserrat;
   font-weight: lighter;
-  font-size: 10em;
+  font-size: 6em;
   text-align: center;
   margin-top: 35vh;
 }
@@ -377,7 +384,7 @@ div.bar:not(:first-child) {
   font-weight: 100;
   text-align: center;
   margin-top: 10px;
-  font-size: 4em;
+  font-size: 2em;
   color: #fff;
 }
 #intro span {
@@ -422,12 +429,7 @@ div.bar:not(:first-child) {
   height: 40vh;
   margin-bottom: 50px;
 }
-.ev-box {
-  width: 45vh;
-  height: 45vh;
-  margin: 20px auto;
-  position: relative;
-}
+
 .ev-box h4, .menu-box h4{
   text-align: center;
   text-transform: uppercase;
@@ -526,6 +528,194 @@ div.bar:not(:first-child) {
   background-color: #fffa90 !important;
 }
 
+
+/* ----------------------------------------------
+----------- Event Display Styles ----------------
+---------------------------------------------- */
+#featured-evs h2 {
+  text-align: center;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  margin: 0;
+  padding: 40px 0 20px 0;
+}
+.ev-box {
+  width: 100%;
+  margin: 0;
+  padding: 20px 10%;
+  position: relative;
+  background-color: rgba(0,0,0,0.3);
+}
+#events {
+  overflow: auto;
+  padding: 0;
+  background-image: url("/img/backgrounds/bench.jpeg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+/* ----------------------------------------------
+-------------- About Styles ---------------------
+---------------------------------------------- */
+.map-overlay {
+  position: absolute;
+  z-index: 999;
+}
+#location-map iframe, .map-overlay {
+  width: 100%;
+  min-height: 60vh;
+  margin: 0;
+}
+#location-map {
+  margin-bottom: -5px;
+}
+#contact-info {
+  width: 100%;
+  min-height: 96vh;
+  float: left;
+  background-color: rgba(240,240,240,1);
+}
+.contact-block {
+  width: 90%;
+  padding: 20px;
+  margin: 5% auto;
+  background: #fff;
+}
+.contact-block p, .contact-block a, .contact-block h4 {
+  color: #111;
+}
+.contact-block h4 {
+  font-size: 1.6em;
+}
+.contact-block p {
+  font-size: 1em;
+}
+.contact-block th {
+  color: #111;
+  font-family: Montserrat;
+  font-weight: 300;
+  font-size: 1.6em;
+}
+.contact-block td {
+  font-size: 1em !important;
+  color: #111 !important;
+  font-weight: 200;
+}
+#reservation-block input[type='date'], #reservation-block select {
+  width: 50%;
+  float: left;
+  border: none;
+}
+#reservation-block input {
+  width: 100%;
+  min-height: 30px;
+  border: none;
+}
+#reservation-block button[type='submit'] {
+  width: 100%;
+  color: #fff;
+  background-color: rgb(211, 35, 35);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+
+/* ----------------------------------------------
+--------------- Menu Styles ---------------------
+---------------------------------------------- */
+.menu-block {
+  float: left;
+  background-image: url("http://placehold.it/200x200");
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+}
+.menu-block h5 {
+  font-size: 2em !important;
+}
+.food-block {
+  width: 68.75%;
+  height: 40vh;
+  background-image: url("/img/backgrounds/op/burger.jpg");
+}
+.food-block h5 {
+  line-height: 40vh;
+}
+.beer-block {
+  width: 31.25%;
+  height: 40vh;
+  background-image: url("/img/backgrounds/op/beer.jpg");
+}
+.beer-block h5 {
+  line-height: 40vh;
+}
+.mobile-item.specials-block {
+  width: 100%;
+  height: 25vh;
+  background-image: url("/img/backgrounds/op/special.jpg");
+}
+.mobile-item.specials-block h5 {
+  line-height: 25vh;
+}
+.mobile-item.wine-block {
+  width: 100%;
+  height: 50vh;
+  background-image: url("/img/backgrounds/op/wine.jpg");
+}
+.mobile-item.wine-block h5 {
+  line-height: 50vh;
+}
+.mobile-item.dessert-block {
+  width: 100%;
+  height: 10vh;
+  background-image: url("/img/backgrounds/op/dessert.jpg");
+}
+.mobile-item.dessert-block h5 {
+  line-height: 10vh;
+}
+.cocktails-block {
+  width: 100%;
+  height: 25vh;
+  background-image: url("/img/backgrounds/beautifulday.jpg");
+}
+.cocktails-block h5 {
+  line-height: 25vh;
+}
+.block-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+.block-overlay h5 {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 3em;
+  text-align: center;
+  margin: 0;
+}
+.show {
+  display: block;
+}
+
+.menu-modal {
+  width: 85%;
+  margin: auto;
+  border-radius: 10px;
+  background-color: rgba(240,240,240,1);
+  min-height: 50vh;
+}
+
+@media (max-width: 968px) {
+  .col-50 {
+    width: 50%;
+    float: left;
+  }
+}
+
 /* ----------------------------------------------
 ---- Hamburger Menu animation by Jesse Couch ----
 ---------------------------------------------- */
@@ -621,10 +811,6 @@ div.bar:not(:first-child) {
   top: 20px;
 }
 
-ul#soc-links {
-}
-#soc-links li {
-}
 #soc-links img {
   width: 50px;
   margin: 0 auto;
@@ -636,380 +822,4 @@ ul#soc-links {
 #events-pu {
   width: 90%;
   margin-left: 5%;
-}
-
-/* ----------------------------------------------
---------------- Desktop Styles ------------------
----------------------------------------------- */
-@media (min-width: 968px) {
-
-  a {
-    text-decoration: none !important;
-  }
-  .desktop-item {
-    display: block;
-  }
-  .desktop-item-inline {
-    display: inline-block;
-  }
-  footer {
-    background-color: #000;
-  }
-  .mobile-item, .mobile-item-inline {
-    display: none !important;
-  }
-  .primary-container {
-    background-color: #000;
-  }
-  svg {
-    width: 100%;
-  }
-  section {
-    padding: 0 !important;
-  }
-
-  /* ----------------------------------------------
-  ---------------- Intro Styles -------------------
-  ---------------------------------------------- */
-  #intro img {
-    width: 50%;
-    margin-left: 25%;
-  }
-  #intro h2 {
-    font-size: 2em;
-  }
-  #intro a {
-    width: 13%;
-  }
-
-  /* ----------------------------------------------
-  ----------- Featured Events Styles --------------
-  ---------------------------------------------- */
-  #events h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-left: 40px;
-  }
-  #events h2 {
-    text-align: center;
-  }
-  #featured-evs {
-    width: 50%;
-    float: right;
-  }
-  #featured-evs div {
-    float: left;
-  }
-  #featured-evs div h4 {
-    font-size: 2em;
-  }
-  #featured-evs div p {
-    font-size: 1em;
-  }
-  #db-evs {
-    width: 100%;
-  }
-  .ev-box {
-    width: 100%;
-    height: 100px;
-    margin: 0;
-    position: relative;
-  }
-  .menu-box h4 {
-    margin-top: 10vh;
-  }
-  #events {
-    overflow: auto;
-    padding: 0;
-    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.jpeg");
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  #events h1 {
-    color: #fff;
-  }
-  #featured-evs {
-    overflow: hidden;
-  }
-  #events-calendar {
-    width: 60%;
-    margin: 0 auto;
-  }
-
-  /* ----------------------------------------------
-  ---------------- About Styles -------------------
-  ---------------------------------------------- */
-  #location-map iframe {
-    width: 100%;
-    height: 96vh;
-    margin: 0;
-    float: left;
-  }
-  #location-map, .map-overlay {
-    width: 70%;
-    height: 96vh;
-    margin: 0;
-    float: left;
-  }
-  .map-overlay {
-    position: absolute;
-    z-index: 999;
-  }
-  #contact-info {
-    width: 30%;
-    height: 96vh;
-    float: left;
-    background-color: rgba(240,240,240,1);
-  }
-  .contact-block {
-    width: 90%;
-    padding: 20px;
-    margin: 5% auto;
-    background: #fff;
-  }
-  .contact-block p, .contact-block a, .contact-block h4 {
-    color: #111;
-  }
-  .contact-block h4 {
-    font-size: 1.6em;
-  }
-  .contact-block p {
-    font-size: 1em;
-  }
-  .contact-block th {
-    color: #111;
-    font-family: Montserrat;
-    font-weight: 300;
-    font-size: 1.6em;
-  }
-  .contact-block td {
-    font-size: 1em !important;
-    color: #111 !important;
-    font-weight: 200;
-  }
-  #reservation-block input[type='date'], #reservation-block select {
-    width: 50%;
-    float: left;
-    border: none;
-  }
-  #reservation-block input {
-    width: 100%;
-    min-height: 30px;
-    border: none;
-  }
-  #reservation-block button[type='submit'] {
-    width: 100%;
-    color: #fff;
-    background-color: rgb(211, 35, 35);
-    border: none;
-    border-radius: 5px;
-    padding: 5px 0;
-    margin-top: 5px;
-  }
-
-  /* ----------------------------------------------
-  ----------------- Nav Styles --------------------
-  ---------------------------------------------- */
-  .offscreen-nav-wrapper {
-    display: none;
-  }
-  .top-nav {
-    display: block;
-    background-color: #000;
-    overflow: auto;
-    margin: 0;
-    padding: 0;
-  }
-  .sticky-wrapper.is-sticky .top-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 99999 !important;
-  }
-  .top-nav ul {
-    margin: 0;
-  }
-  .top-nav li {
-    list-style-type: none;
-    display: inline-block;
-    padding: 20px 40px;
-    float: right;
-  }
-  #contact-topnav {
-    cursor: pointer;
-  }
-  #contact-topnav:hover {
-    color: rgba(35,82,124,1);
-  }
-
-  /* ----------------------------------------------
-  ----------------- Menu Styles -------------------
-  ---------------------------------------------- */
-  .menu-block {
-    float: left;
-    background-image: url("http://placehold.it/200x200");
-    background-position: center center;
-    background-size: cover;
-    cursor: pointer;
-  }
-  .col-80 {
-    width: 80%;
-    float: left;
-  }
-  .col-20 {
-    width: 20%;
-    float: left;
-  }
-  .food-block {
-    width: 68.75%;
-    height: 80vh;
-    background-image: url("/img/backgrounds/op/burger.jpg");
-  }
-  .food-block h5 {
-    line-height: 80vh;
-  }
-  .beer-block {
-    width: 31.25%;
-    height: 80vh;
-    background-image: url("/img/backgrounds/op/beer.jpg");
-  }
-  .beer-block h5 {
-    line-height: 80vh;
-  }
-  .specials-block {
-    width: 100%;
-    height: 30vh;
-    background-image: url("/img/backgrounds/op/special.jpg");
-  }
-  .specials-block h5 {
-    line-height: 30vh;
-  }
-  .wine-block {
-    width: 100%;
-    height: 70vh;
-    background-image: url("/img/backgrounds/op/wine.jpg");
-  }
-  .wine-block h5 {
-    line-height: 70vh;
-  }
-  .dessert-block {
-    width: 62.5%;
-    height: 20vh;
-    background-image: url("/img/backgrounds/op/dessert.jpg");
-  }
-  .dessert-block h5 {
-    line-height: 20vh;
-  }
-  .cocktails-block {
-    width: 37.5%;
-    height: 20vh;
-    background-image: url("/img/backgrounds/beautifulday.jpg");
-  }
-  .cocktails-block h5 {
-    line-height: 20vh;
-  }
-  .block-overlay {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: none;
-  }
-  .block-overlay h5 {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 3em;
-    text-align: center;
-    margin: 0;
-  }
-  .show {
-    display: block;
-  }
-
-  .menu-modal {
-    width: 85%;
-    margin: auto;
-    border-radius: 10px;
-    background-color: rgba(240,240,240,1);
-    min-height: 50vh;
-  }
-
-  /* ----------------------------------------------
-  ---------------- Social Styles ------------------
-  ---------------------------------------------- */
-  #social {
-    padding: 20px;
-    min-height: 0vh;
-    height: auto;
-    overflow-x: hidden;
-  }
-  #social h2 {
-    background-color: #000;
-    color: #fff;
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-  .soc-box {
-    float: left;
-    width: 20%;
-    height: 25vh;
-    margin: 0;
-    background-color: #000;
-    position: relative;
-  }
-  .soc-box h4 {
-    color: #fff;
-    text-align: center;
-    margin-top: 13vh;
-    font-weight: bold;
-    font-size: 2em;
-  }
-  #social {
-    background-color: #000;
-  }
-  .insta-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    color: #fff;
-    padding-top: 25px;
-  }
-  .insta-likes {
-    padding-left: 25px;
-    background-image: url("/img/icons/like.svg");
-    background-repeat: no-repeat;
-    background-position: left top;
-    float: left;
-    margin-left: 30%;
-  }
-  .insta-comments {
-    padding-left: 25px;
-    background-image: url("/img/icons/comment.svg");
-    background-repeat: no-repeat;
-    background-position: left top;
-    float: right;
-    margin-right: 30%;
-  }
-  .insta-caption {
-    width: 80%;
-    text-align: center;
-    display: block;
-    margin: 0 10%;
-    float: left;
-  }
-  ul#soc-links {
-    width: 50%;
-    margin: 0 auto;
-  }
-  #soc-links li {
-    width: 31%;
-  }
-  #soc-links img {
-    width: 100%;
-  }
-  #ig-links {
-    height: auto;
-  }
 }
