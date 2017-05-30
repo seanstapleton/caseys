@@ -420,25 +420,41 @@
 
     $("#reservation fieldset").css("height", $(".datepicker").height());
 
-    var setUpReservations = function() {
-
+    var setUpReservations = function(str) {
+      var d = moment(str);
+      d.hours(11);
+      d.minutes(59);
       var timeSelect = $("#reserve-time-block");
-      var d = new Date();
-      $("#reserve-date-block").val(d.yyyymmdd());
-      var day = d.getDay();
-      var hoo = (day > 0 && day < 5) ? 21 : 22;
-      var time = d.getHours();
-      if (d.getMinutes() < 30) {
+      var day = d.hours();
+      var close = (day > 0 && day < 5) ? 21 : 22;
+      var today = new moment();
+      var time = (d.dayOfYear() == today.dayOfYear()) ? today.hours() : d.hours();
+      console.log("time: ", time);
+      console.log("minutes: ", d.minutes());
+      $("#reserve-time-block").find("option").remove();
+      if (d.minutes() < 30) {
         var am = (time < 12) ? "am" : "pm";
-        timeSelect.append($("<option></option>").val("" + time % 12 + ":30" + am).text("" + time % 12 + ":30" + am));
+        var t = (time % 12 == 0) ? 12 : time % 12;
+        timeSelect.append($("<option></option>").val("" + t + ":30" + am).text("" + t + ":30" + am));
       }
-      for (var i = time + 1; i < hoo; i++) {
+      for (var i = time + 1; i < close; i++) {
         var am = (i < 12) ? "am" : "pm";
-        timeSelect.append($("<option></option>").val("" + i % 12 + ":00" + am).text("" + i % 12 + ":00" + am));
-        timeSelect.append($("<option></option>").val("" + i % 12 + ":30" + am).text("" + i % 12 + ":30" + am));
+        var t = (i % 12 == 0) ? 12 : i % 12;
+        timeSelect.append($("<option></option>").val("" + t + ":00" + am).text("" + t + ":00" + am));
+        timeSelect.append($("<option></option>").val("" + t + ":30" + am).text("" + t + ":30" + am));
+      }
+      if ($("#reserve-time-block option").length == 0) {
+        timeSelect.append($("<option disabled selected></option>").val("null").text("No times available"));
       }
     }
-    setUpReservations();
+    var today = new Date();
+    $("#reserve-date-block").val(today.yyyymmdd());
+    setUpReservations(today);
+
+    $("#reserve-date-block").change(function() {
+      var str = $(this).val()
+      setUpReservations(str);
+    });
 
     $("#reserve-table").submit(function(e) {
       var formData = {
