@@ -60,7 +60,7 @@ td {
 }
 #events {
   padding: 0;
-  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.jpeg");
+  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.JPG");
   background-position: left center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -365,7 +365,7 @@ div.bar:not(:first-child) {
   background-size: cover;
   background-position: center center;
   position: fixed;
-  z-index: -99999;
+  z-index: 0;
 }
 #intro img {
   width: 90%;
@@ -402,6 +402,7 @@ div.bar:not(:first-child) {
   margin: 10vh auto;
 }
 #look {
+  cursor: pointer;
   animation-duration: 2s;
   animation-delay: 2s;
   animation-iteration-count: infinite;
@@ -549,7 +550,7 @@ div.bar:not(:first-child) {
 #events {
   overflow: auto;
   padding: 0;
-  background-image: url("/img/backgrounds/bench.jpeg");
+  background-image: url("/img/backgrounds/bench.JPG");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

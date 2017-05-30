@@ -84,7 +84,7 @@
   #events {
     overflow: auto;
     padding: 0;
-    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/bench.jpeg");
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/img/backgrounds/op/bench_arch.JPG");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -99,6 +99,8 @@
     width: 60%;
     margin: 0 auto;
   }
+
+
 
   /* ----------------------------------------------
   ---------------- About Styles -------------------
