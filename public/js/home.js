@@ -480,7 +480,7 @@
         name: $("#contact-name").val(),
         email: $("#contact-email").val(),
         phnum: $("#contact-phnum").val(),
-        message: $("#contact-message").val()
+        message: $("#contact-msg").val()
       }
 
       $.post("/backendServices/sendMessage", formData, function(data) {
