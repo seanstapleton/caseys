@@ -96,6 +96,7 @@
     $(".offscreen-nav a").click(function() {
       $("#menu").toggleClass("open");
       $('.offscreen-nav').toggleClass("onscreen");
+      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
     });
 
     $(document).scroll(function() {
@@ -247,7 +248,7 @@
     $("#close").click(function() {
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
-      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#specials", "#desserts", "#wine", "#contact-form", "#events-pu"];
+      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#events-pu"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
         if (p.hasClass("show")) p.toggleClass("show");
@@ -300,26 +301,8 @@
       $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
       if ($("#food").find("canvas").length == 0) {
-        var currentMenu = $("#foodMenuSelector").find(":selected");
-        displayMenu(currentMenu.val(),currentMenu.text(),"#food");
-      }
-    });
-
-    $("#foodMenuSelector").change(function() {
-      var currentMenu = $(this).find(":selected");
-
-      $(".spinner").toggleClass("show");
-
-      $("#food").find("canvas").each(function() {
-        if (!$(this).hasClass(currentMenu.text()) && $(this).hasClass("show")) $(this).toggleClass("show");
-      });
-
-      var menuObj = $("#food").find("." + currentMenu.text());
-      if (menuObj.length != 0 && !menuObj.hasClass("show")) {
-        menuObj.toggleClass("show");
-        $(".spinner").removeClass("show");
-      } else if (menuObj.length == 0){
-        displayMenu(currentMenu.val(),currentMenu.text(),"#food");
+        var currentMenu = "/img/menus/dinner.pdf";
+        displayMenu(currentMenu,"dinnerMenu","#food");
       }
     });
 
@@ -356,14 +339,14 @@
       }
     });
 
-    $(".specialsLink").click(function() {
+    $(".carryoutLink").click(function() {
       $("#overlay").toggleClass("show");
-      $("#specials").toggleClass("show");
+      $("#carryout").toggleClass("show");
       $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
-      if ($("#specials").find("canvas").length == 0) {
-        var currentMenu = "/img/menus/specials.pdf";
-        displayMenu(currentMenu,"specialsMenu","#specials");
+      if ($("#carryout").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/carryout.pdf";
+        displayMenu(currentMenu,"carryoutMenu","#carryout");
       }
     });
 
@@ -469,6 +452,40 @@
       $.post("/backendServices/reserveTable", formData, function(data) {
         if (data.success) swal("Your request has been sent", "Please wait for an email confirmation or call (269) 469-6400", "success");
         else swal("There was an error with your request", "Please call (269) 469-6400", "error");
+      });
+
+      return false;
+    });
+
+    $("#reserve-table").submit(function(e) {
+      var formData = {
+        name: $("#res-name").val(),
+        email: $("#res-email").val(),
+        phnum: $("#res-phnum").val(),
+        size: $("#res-size").val(),
+        date: $("#reserve-date-block").val(),
+        time: $("#reserve-time-block").val()
+      }
+
+      $.post("/backendServices/reserveTable", formData, function(data) {
+        if (data.success) swal("Your request has been sent", "Please wait for an email confirmation or call (269) 469-6400", "success");
+        else swal("There was an error with your request", "Please call (269) 469-6400", "error");
+      });
+
+      return false;
+    });
+
+    $("#sendMessage").submit(function(e) {
+      var formData = {
+        name: $("#contact-name").val(),
+        email: $("#contact-email").val(),
+        phnum: $("#contact-phnum").val(),
+        message: $("#contact-message").val()
+      }
+
+      $.post("/backendServices/sendMessage", formData, function(data) {
+        if (data.success) swal("Your message has been sent", "We will respond as soon as possible.", "success");
+        else swal("There was an error with our servers", "Please call (269) 469-6400 or email phil@caseysnewbuffalo.com", "error");
       });
 
       return false;

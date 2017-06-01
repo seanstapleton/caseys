@@ -330,10 +330,10 @@ div.bar:not(:first-child) {
 #events-pu {
   display: none;
 }
-#food, #events-pu, #contact-form, #beer, #cocktails, #wine, #specials, #desserts {
+#food, #events-pu, #contact-form, #beer, #cocktails, #wine, #carryout, #desserts {
   display: none;
 }
-#food canvas, #drinks canvas, #cocktails canvas {
+#food canvas, #beer canvas, #cocktails canvas, #wine canvas, #desserts canvas, #carryout canvas {
   width: 95%;
   margin: 0 auto;
 }
@@ -417,6 +417,7 @@ div.bar:not(:first-child) {
   position: relative;
   top: 100vh;
   z-index: 1;
+  overflow-x: hidden;
 }
 #about {
   background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url("/img/backgrounds/op/chat.jpg");
@@ -604,15 +605,18 @@ div.bar:not(:first-child) {
   color: #111 !important;
   font-weight: 200;
 }
-#reservation-block input[type='date'], #reservation-block select {
+#reservation-block input[type='date'], #reservation-block select  {
   width: 50%;
   float: left;
   border: none;
 }
-#reservation-block input {
+#reservation-block input, #contact-form-block input, #contact-form-block textarea {
   width: 100%;
   min-height: 30px;
   border: none;
+}
+#contact-form-block textarea {
+  min-height: 50px;
 }
 #reservation-block button[type='submit'] {
   width: 100%;
@@ -620,6 +624,14 @@ div.bar:not(:first-child) {
   background-color: rgb(211, 35, 35);
   border: none;
   border-radius: 5px;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+#contact-form-block button[type='submit'] {
+  width: 100%;
+  color: #fff;
+  background-color: rgb(211, 35, 35);
+  border: none;
   padding: 5px 0;
   margin-top: 5px;
 }
@@ -653,12 +665,12 @@ div.bar:not(:first-child) {
 .beer-block h5 {
   line-height: 40vh;
 }
-.mobile-item.specials-block {
+.mobile-item.carryout-block {
   width: 100%;
   height: 25vh;
   background-image: url("/img/backgrounds/op/special.jpg");
 }
-.mobile-item.specials-block h5 {
+.mobile-item.carryout-block h5 {
   line-height: 25vh;
 }
 .mobile-item.wine-block {

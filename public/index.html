@@ -58,22 +58,11 @@
           <iframe data-aos="zoom-in-up" src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v1493947522552!6m8!1m7!1s4h2ZxnzZZ9gAAAQfDpCpIA!2m2!1d41.79589168061158!2d-86.74534769800971!3f236.18051604391565!4f-13.172600226446676!5f0.7820865974627469" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
 
-        <div id="food">
-          <div class="selectContainer" style="overflow: auto">
-            <p>Menu: </p>
-            <select id="foodMenuSelector">
-              <option value="/img/menus/brunch.pdf">Brunch</option>
-              <option value="/img/menus/lunch.pdf" selected>Lunch</option>
-              <option value="/img/menus/dinner.pdf">Dinner</option>
-            </select>
-            <span style="float: right; background-color: green; padding: 16px; margin-top: -40px;" id="btn-oo" class="glf-button" data-glf-cuid="54184d32-b385-4993-8d7b-56408285995c" data-glf-ruid="2b4ec7ef-f180-4125-913a-76bd1658ea24" data-glf-auto-open="false"> Order Online</span>
-            <script src="https://www.foodbooking.com/widget/js/ewm2.js" defer async ></script>
-          </div>
-        </div>
+        <div id="food"></div>
         <div id="beer"></div>
         <div id="wine"></div>
         <div id="cocktails"></div>
-        <div id="specials"></div>
+        <div id="carryout"></div>
         <div id="desserts"></div>
 
 
@@ -167,18 +156,27 @@
                 </tr>
               </table>
             </div>
-            <div id="reservation-block" class="contact-block">
+            <!-- <div id="reservation-block" class="contact-block">
               <h4>Reserve a Table</h4>
               <form id="reserve-table">
                 <input id="reserve-date-block" type="date"/>
                 <select id="reserve-time-block">
-                  <!-- <option selected disabled value="null">Please select a time</option> -->
                 </select>
                 <input type="text" id="res-name" placeholder="Name" required/>
                 <input type="text" id="res-email" placeholder="Email" required/>
                 <input type="text" id="res-phnum" placeholder="Phone Number" required/>
                 <input type="text" id="res-size" placeholder="Party Size" required/>
                 <button type="submit">Reserve</button>
+              </form>
+            </div> -->
+            <div id="contact-form-block" class="contact-block">
+              <h4>Contact</h4>
+              <form id="sendMessage">
+                <input type="text" id="contact-name" placeholder="Name" required/>
+                <input type="text" id="contact-email" placeholder="Email" required/>
+                <input type="text" id="contact-phnum" placeholder="Phone Number"/>
+                <textarea id="contact-msg" placeholder="Message" required></textarea>
+                <button type="submit">Send</button>
               </form>
             </div>
           </div>
@@ -191,7 +189,7 @@
             <div class="menu-block beer-block beerLink"><div class="block-overlay"><h5>Beer</h5></div></div>
             <div class="menu-block dessert-block dessertsLink desktop-item"><div class="block-overlay"><h5>Dessert</h5></div></div>
             <div class="col-50">
-              <div class="menu-block specials-block specialsLink mobile-item"><div class="block-overlay"><h5>Specials</h5></div></div>
+              <div class="menu-block carryout-block carryoutLink mobile-item"><div class="block-overlay"><h5>Carry Out</h5></div></div>
               <div class="menu-block cocktails-block cocktailsLink"><div class="block-overlay"><h5>Cocktails</h5></div></div>
             </div>
             <div class="col-50">
@@ -200,7 +198,7 @@
             <div class="menu-block dessert-block dessertsLink mobile-item"><div class="block-overlay"><h5>Dessert</h5></div></div>
           </div>
           <div class="col-20 desktop-item">
-            <div class="menu-block specials-block specialsLink"><div class="block-overlay"><h5>Specials</h5></div></div>
+            <div class="menu-block carryout-block carryoutLink"><div class="block-overlay"><h5>Carry Out</h5></div></div>
             <div class="menu-block wine-block wineLink"><div class="block-overlay"><h5>Wine</h5></div></div>
           </div>
 
