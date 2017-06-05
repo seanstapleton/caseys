@@ -32,7 +32,8 @@ module.exports = function(passport) {
         else {
           var newUser = new User();
           newUser.email = email;
-          newUser.password = newUser.generateHash();
+          // newUser.password = newUser.generateHash(password);
+          newUser.password = password;
 
           newUser.save(function(err) {
             if (err) {
@@ -40,7 +41,7 @@ module.exports = function(passport) {
               done(null, false, req.flash({message: 'Save Error.'}));
             }
             else {
-              console.log("User registration successful!");
+              console.log("User registration successful.");
               return done(null, newUser);
             }
           });
@@ -56,10 +57,21 @@ module.exports = function(passport) {
     passwordField: 'password',
     passReqToCallback: true
   }, function(req, email, password, done) {
-    User.findOne({'email': email}, function(err, user) {
-      if (err) return done(err);
-      if(!user) return done(null, false, req.flash('loginMessage', 'No user found'));
-      if (!user.validPassword(password)) return done(null, false, req.flash,('loginMessage', 'Incorrect Password'));
+      console.log("ay");
+    User.find({'email': email}, function(err, user) {
+      console.log("yo");
+      if (err) {
+        console.log("error passport");
+        return done(err);
+      }
+      if(!user) {
+        console.log('No user found');
+        return done(null, false, req.flash('loginMessage', 'No user found'));
+      }
+      if (!user.validPassword(password)) {
+        console.log("incorrect password");
+        return done(null, false, req.flash,('loginMessage', 'Incorrect Password'));
+      }
       return done(null, user);
     })
   }));
