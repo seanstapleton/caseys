@@ -1,6 +1,6 @@
 module.exports = function(passport) {
   var LocalStrategy = require('passport-local');
-  var User = require('../models/users');
+  var User = require('../models/users.js');
   var bCrypt = require('bcrypt-nodejs');
 
   passport.serializeUser(function(user, done) {
@@ -32,8 +32,7 @@ module.exports = function(passport) {
         else {
           var newUser = new User();
           newUser.email = email;
-          // newUser.password = newUser.generateHash(password);
-          newUser.password = password;
+          newUser.password = newUser.generateHash(password);
 
           newUser.save(function(err) {
             if (err) {
@@ -57,9 +56,7 @@ module.exports = function(passport) {
     passwordField: 'password',
     passReqToCallback: true
   }, function(req, email, password, done) {
-      console.log("ay");
-    User.find({'email': email}, function(err, user) {
-      console.log("yo");
+    User.findOne({'email': email}, function(err, user) {
       if (err) {
         console.log("error passport");
         return done(err);

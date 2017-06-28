@@ -8,11 +8,35 @@
         <link href='/lib/animate.css/animate.min.css' rel='stylesheet'>
         <link href='/lib/aos/dist/aos.css' rel='stylesheet'>
         <link href='/css/admin.css' rel='stylesheet'>
+        <link href="/lib/sweetalert/sweetalert.css" rel="stylesheet">
         <script type='text/javascript' src='/lib/jquery/jquery.min.js'></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
-    <body ng-app="theharpandfiddle">
+    <body ng-app="caseysnewbuffalo" ng-controller="HomeController">
+
+      <nav class="navbar navbar-default" style="background-color: #337ab7">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#admin-nav" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="color: #fff">Casey's New Buffalo</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="admin-nav">
+            <ul class="nav navbar-nav navbar-right" ng-if="userData.isLoggedIn">
+              <li ng-click="pageData.current = 'events'" class="active"><a href="#" style="color: #fff">Events</a></li>
+              <li ng-click="pageData.current = 'menus'"><a href="#" style="color: #fff">Menus</a></li>
+              <li ng-click="pageData.current = 'photos'"><a href="#" style="color: #fff">Photos</a></li>
+              <li ng-click="logout()"><a href="#" style="color: #fff"><b>Logout</b></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
       <div id="primary" class='container'>
           <div ng-view></div>
@@ -20,6 +44,8 @@
 
     </body>
 </html>
+<script type="text/javascript" src="/lib/sweetalert/sweetalert.min.js"></script>
+<script src="/lib/pdfjs/build/pdf.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src='/lib/aos/dist/aos.js'></script>
 <script src='/lib/angular/angular.min.js'></script>
@@ -27,7 +53,7 @@
 <script src='/lib/angular/angular-messages.min.js'></script>
 <script type='text/javascript'>
     (function() {
-        var app = angular.module('theharpandfiddle', ['ngRoute']);
+        var app = angular.module('caseysnewbuffalo', ['ngRoute']);
         app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
             $routeProvider
                 .when('/', {
@@ -53,5 +79,5 @@
 
 </script>
 <script type="text/javascript" src="/js/controllers/login.js"></script>
-<script type="text/javascript" src="/js/controllers/register.js"></script>
+<script type="text/javascript" src="/js/controllers/home.js"></script>
 <script type="text/javascript" src="/js/controllers/dash.js"></script>

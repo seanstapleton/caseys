@@ -109,7 +109,8 @@ module.exports = function(db, passport) {
     });
 
     router.post('/deleteEvent', function(req, res, next) {
-      eventsSchema.find({_id: req.body.id}).remove(function(err, data) {
+      console.log(req.body);
+      eventsSchema.find({_id: req.body._id}).remove(function(err, data) {
         if (err) {console.log(err); return res.send({success: false, err: err});}
         else return res.send({success: true});
       });

@@ -1,65 +1,78 @@
-<div class="overlay" ng-click="toggleEventUpload()"></div>
-<div id="eventModal">
-  <div id="eventBody">
-    <h1 ng-if="evMessage">{{evMessage}}</h1>
-    <form ng-if="!evMessage" ng-submit="uploadEvent()">
-      <h1 style="color: #fff">{{mode == "new" ? "New Event" : "Edit Event"}}</h1>
-      <input ng-model="eventData.title" class="form-control" type="text" placeholder="title"/>
-      <input ng-model="eventData.description" class="form-control" type="text" placeholder="description"/>
-      <input ng-model="eventData.start" class="form-control" type="datetime-local"/>
-      <input ng-model="eventData.end" class="form-control" type="datetime-local"/>
-      <input ng-model="eventData.url" class="form-control" type="text" placeholder="link"/>
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-default" style="padding-top: 10px; padding-bottom: 10px; background-color:#eee" type="button" ng-click="linkDrivePhoto()">Format Link (Drive, Dropbox)</button>
-        </span>
-        <input ng-model="eventData.img" class="form-control" type="text" placeholder="image url"/>
-      </div>
-      <label class="checkbox-inline"><input ng-model="eventData.featured" class="" type="checkbox"/><span>Featured</span></label>
-      <button class="btn btn-primary btn-dash">Upload</button>
-    </form>
+<div class="overlay" ng-click="clearImageData()"></div>
+<div class="imageEditModal">
+  <div class="imgSearch">
+    <input type="text" placeholder="type in url here" ng-model="imageEditData.current"/>
+    <button class="btn btn-primary" ng-click="updatePreview()">Preview</button>
+    <button class="btn btn-success" ng-click="updateImage()">Apply</button>
+  </div>
+
+  <div id="previewContainer">
+    <div id="previewWindow"></div>
   </div>
 </div>
-<button id="logout" class="btn btn-primary" style="position: absolute; top: 50px; right: 100px;" ng-click="logout()">Logout</button>
-<section id="events" ng-if="loggedIn">
-  <h1 ng-click="collapseEvs()" style="cursor: pointer">Events<span class="dropdown"><span class="caret"></span></span></h1>
-  <select ng-model="eventOrder">
-    <option value="title">Title</option>
-    <option value="description">Description</option>
-    <option value="start" selected>Date</option>
-    <option value="featured">Featured</option>
+
+<section id="events" ng-if="userData.isLoggedIn && pageData.current == 'events'">
+  <p class="dispControls">
+    <a>Card view</a> | <a>List view</a>
+  </p>
+  <h1>Events</h1>
+  <select ng-model="eventData.order">
+    <option value="title:false">Title</option>
+    <option value="description:false">Description</option>
+    <option value="start:true" selected>Date (newest to oldest)</option>
+    <option value="start:false">Date (oldest to newest)</option>
+    <option value="featured:false">Featured</option>
   </select>
-  <label for="reversed" style="margin-left: 20px">Reverse</label>
-  <input type="checkbox" style="margin-left: 10px" ng-model="reversed" id="reversed"/>
-  <table class="table">
-    <thead>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Start</th>
-      <th>End</th>
-      <th>Link</th>
-      <th>Image</th>
-      <th>Featured</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="event in events | orderBy:eventOrder:reversed" class="collapsable-ev hide">
-        <td>{{event.title}}</td>
-        <td>{{event.description}}</td>
-        <td>{{event.start | dateInMillis | date:'medium'}}</td>
-        <td>{{event.end | dateInMillis | date:'medium'}}</td>
-        <td>{{event.url}}</td>
-        <td>{{event.img}}</td>
-        <td><input type="checkbox" ng-init="event.selected = event.featured" ng-model="event.selected" ng-click="updateFeatured(event)"></td>
-        <td><button class="btn btn-primary" ng-click="editEvent(event._id)">Edit</button></td>
-        <td><button class="btn btn-danger" ng-click="deleteEvent(event._id)">Delete</button></td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td><button ng-click="toggleEventUpload()">Add new event</button></td>
-      </tr>
-    </tfoot>
-  </table>
+  <a ng-click="addEvent()">Add new event</a>
+
+  <div id="admin-container">
+    <div class="event-card" ng-repeat="event in events | orderBy:detEvOrder():detEvDir()">
+      <div class="event-fav" id="fav-{{event._id}}" data-checked="{{event.featured}}" ng-click="updateFeatured(event)"></div>
+      <div class="event-edit" id="edit-{{event._id}}" data-status="saved" ng-click="editEvent(event)"></div>
+      <div class="event-delete" ng-click="deleteEvent(event)"></div>
+      <div class="event-img" style="background-image: url('{{event.img}}')" ng-mouseover="event.editImg = true" ng-mouseout="event.editImg = false">
+        <div class="event-img-overlay" ng-click="editImage(event)" ng-show="event.editImg" id="overlay-{{event._id}}"><img src="/img/icons/update-image.svg"/></div>
+      </div>
+      <div class="event-info" ng-show="event.status != 'edited'">
+        <h5>{{event.title}}</h5>
+        <p><a href="{{event.url}}" target="_blank">{{event.url}}</a></p>
+        <p>{{event.description}}</p>
+        <p><b>Start: </b>{{event.start | dateInMillis | date:'medium'}}</p>
+        <p><b>End: </b>{{event.end | dateInMillis | date:'medium'}}</p>
+      </div>
+      <div class="event-edit-info" ng-show="event.status == 'edited'">
+        <input type="text" ng-model="event.title" class="title-edit"/>
+        <input type="text" ng-model="event.url" class="url-edit"/>
+        <input type="text" ng-model="event.description" class="description-edit"/>
+        <input type="datetime-local" id="start-edit-{{event._id}}" class="time-edit"/>
+        <input type="datetime-local" id="end-edit-{{event._id}}" class="time-edit"/>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="menus" ng-if="userData.isLoggedIn && pageData.current == 'menus'">
+  <p class="dispControls">
+    <a>Card view</a> | <a>List view</a>
+  </p>
+  <h1>Menus</h1>
+  <a ng-click="addItem()">Add new item</a>
+
+    <div class="item-card" ng-repeat="item in items | orderBy:title">
+      <div class="item-edit" id="edit-{{item._id}}" data-status="saved" ng-click="editItem(item)"></div>
+      <div class="item-delete" ng-click="deleteItem(item)"></div>
+      <div class="item-info" ng-show="item.status != 'edited'">
+        <h5>{{item.title}}</h5>
+        <p>{{item.desc}}</p>
+        <p>{{item.price}}</p>
+        <p><span class="tag" ng-repeat="tag in item.tags">{{tag}}</span></p>
+      </div>
+      <div class="item-edit-info" ng-show="item.status == 'edited'">
+        <input type="text" ng-model="item.title" class="title-edit" placeholder="Type title here"/>
+        <input type="text" ng-model="item.desc" class="description-edit" placeholder="Type description"/>
+        <input type="text" ng-model="item.price" class="price-edit" placeholder="Add price"/>
+        <input type="text" ng-model="item.tags" class="tags-edit" placeholder="Add tags"/>
+      </div>
+    </div>
+  </div>
+
 </section>

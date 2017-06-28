@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('theharpandfiddle');
+    var app = angular.module('caseysnewbuffalo');
 
     app.controller('LoginController', ['$scope', '$http', '$window', function($scope, $http, $window) {
 
@@ -9,7 +9,6 @@
               password: $scope.password,
           }).then(function(res) {
               if(res.data.success) {
-                  console.log("ayy");
                   $window.location = '/admin/dash';
               } else {
                   $scope.loginError = true;

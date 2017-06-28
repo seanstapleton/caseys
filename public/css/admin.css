@@ -1,7 +1,5 @@
 body {
-  background-image: url("/img/backgrounds/grain-wood.jpg");
-  background-position: center center;
-  background-size: 100%;
+  background-color: rgba(240,240,240,1);
 }
 td {
   max-width: 20px;
@@ -10,9 +8,14 @@ td {
 #primary {
   margin-top: 5vh;
   margin-bottom: 5vh;
-  padding: 40px;
-  background-color: #ccc;
-  border-radius: 10px;
+  padding: 10px 40px;
+}
+.active {
+  background-color: #45A5F7 !important;
+}
+p.dispControls {
+  float: right;
+  cursor: pointer;
 }
 .overlay {
   width: 100%;
@@ -25,18 +28,43 @@ td {
   display: none;
   z-index: 99;
 }
-#eventModal {
-  padding: 40px;
-  width: 40%;
-  margin: 10vh 30%;
-  display: block;
-  display: none;
-  position: absolute;
-  z-index: 9999999;
-  background: #ccc;
+.imageEditModal {
+  width: 80%;
+  margin: 0;
   border-radius: 10px;
-  top: 0;
-  left: 0;
+  background-color: rgba(240,240,240,1);
+  padding: 20px;
+  position: absolute;
+  display: none;
+  z-index: 100;
+  top: 100px;
+  left: 10%;
+}
+#previewWindow {
+  width: 400px;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+  margin: 0 auto;
+}
+.imgSearch {
+  padding: 10px;
+  width: 100%;
+  background-color: rgba(250,250,250,1);
+}
+.imgSearch input {
+  border: none;
+  padding: 10px;
+  width: calc(100% - 220px);
+}
+#previewContainer {
+  width: 100%;
+  background: rgba(200,200,200,1);
+}
+.btn {
+  width: 100px !important;
+  border-radius: 0 !important;
+  margin-left: 5px;
 }
 #eventBody input {
   margin: 10px 0;
@@ -74,4 +102,90 @@ input[type=checkbox] {
   display: block;
   margin: auto;
   text-align: center;
+}
+
+
+
+.event-card, .item-card {
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgba(230,230,230,1);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  position: relative;
+  overflow: auto;
+}
+.event-fav, .event-edit, .event-delete, .item-edit, .item-delete {
+  width: 40px;
+  min-height: 40px;
+  position: absolute;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+}
+.event-delete, .item-delete {
+  top: 10px;
+  right: 10px;
+  background-image: url("/img/icons/delete.svg");
+}
+.event-edit, .item-edit {
+  top: 10px;
+  right: 60px;
+}
+.event-edit[data-status="saved"], .item-edit[data-status="saved"] {
+  background-image: url("/img/icons/edit.svg");
+}
+.event-edit[data-status='edited'], .item-edit[data-status='edited'] {
+  background-image: url("/img/icons/update.svg");
+}
+.event-fav {
+  top: 10px;
+  right: 110px;
+}
+.event-fav[data-checked] {
+  background-image: url("/img/icons/star.svg");
+}
+.event-fav[data-checked='false'] {
+  background-image: url("/img/icons/star_open.svg");
+}
+.event-img {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+}
+.event-info, .event-edit-info, .item-info, .item-edit-info {
+  float: left;
+  padding: 10px;
+  width: calc(100% - 200px);
+}
+.event-info h5, input.title-edit, .item-info h5 {
+  font-size: 2em;
+}
+.event-edit-info input, .item-edit-info input {
+  border: none;
+  padding: 5px;
+  display: block;
+  margin: 5px 0;
+}
+.event-img-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.25);
+  position: relative;
+  padding: 40%;
+  cursor: pointer;
+}
+.event-img-overlay img {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.tag {
+  background-color: #4B9BC7;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 2px;
 }

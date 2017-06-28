@@ -36,16 +36,14 @@
         <p id="close">Close X</p>
         <div id="contact-form">
           <h1>Contact Us</h1>
-          <form class="col-md-6">
-            <div class="alert alert-success successmail">Message sent!</div>
-            <div class="alert alert-danger failmail">Bollocks, there's something wrong with the servers! Please try emailing caseysnb136@gmail.com instead!</div>
+          <form id="contact-fullscreen" class="col-md-6">
             <div id="contact-inputs">
-              <input required class="form-control" id="name" type="text" placeholder="full name"/>
-              <input required class="form-control" id="email" type="email" placeholder="email"/>
-              <input class="form-control" id="phone" type="tel" placeholder="phone number"/>
-              <input required class="form-control" id="subject" type="text" placeholder="subject"/>
+              <input required class="form-control" id="first_name" type="text" placeholder="First Name"/>
+              <input required class="form-control" id="last_name" type="text" placeholder="Last Name"/>
+              <input required class="form-control" id="email" type="email" placeholder="Email"/>
+              <input class="form-control" id="phone" type="tel" placeholder="Phone Number"/>
               <textarea required class="form-control" id="message" placeholder="message"></textarea>
-              <button class="btn btn-primary" id="contact-form-submit">Send</button>
+              <button class="btn btn-primary">Send</button>
             </div>
           </form>
           <div id="contact-form-info" class="col-md-6">
@@ -101,11 +99,6 @@
       </nav>
 
       <img id="show-360" class="animated slideInDown" src="/img/icons/tour.svg"/>
-      <section id="intro">
-        <h1>Casey's</h1>
-        <h2 class="animated slideInLeft">Bar &amp Grill</h2>
-        <a id="look" class="animated pulse" href="#events">Take a Look</a>
-      </section>
 
       <div id="primary-container">
         <div class="top-nav">
@@ -119,18 +112,16 @@
           </ul>
         </div>
 
+        <section id="intro">
+          <h1>Casey's</h1>
+          <h2 class="animated slideInLeft">Bar &amp Grill</h2>
+          <a id="look" class="animated pulse" href="#events">Take a Look</a>
+        </section>
+
 
         <section id="events">
-          <div id="featured-evs">
-            <h2>Upcoming Events</h2>
-            <div id="db-evs"></div>
-              <a id="events-more" style="cursor: pointer">
-                <div class='ev-box' id="see more" data-aos='fade-left' data-aos-delay="0" data-aos-anchor-placement='center-bottom'>
-                  <h4>See more...</h4>
-                  <p>More events at Casey's Bar &amp Grill</p>
-                </div>
-              </a>
-          </div>
+          <h1>Upcoming Events</h1>
+          <div id="featured-evs"></div>
         </section>
 
         <section id="about">
@@ -265,7 +256,7 @@
   $(document).ready(function() {
     var intro_img = $("<img>");
     intro_img.load(function(){
-     $("#intro").css("background-image", "linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)), url('"+$(this).attr("src")+"')");
+     $("#intro").css("background-image", "linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('"+$(this).attr("src")+"')");
     });
     intro_img.attr("src", "/img/backgrounds/caseysoutside.jpg");
   });

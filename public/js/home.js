@@ -27,8 +27,6 @@
       $(".menu-block .block-overlay").addClass("show");
     }
 
-    $(".top-nav").sticky({topSpacing: 0});
-
     $(".map-overlay").click(function() {
       $(this).addClass("hide");
       $(this).removeClass("show");
@@ -41,7 +39,7 @@
       $("#tour-360 iframe").animateCss("zoomIn");
     });
 
-    $("#events-more").click(function() {
+    $(document).on('click','#events-more',function() {
       $("#overlay").toggleClass("show");
       $("#events-pu").toggleClass("show");
       $("body").toggleClass("noscroll");
@@ -168,20 +166,24 @@
 
     $.get('/backendServices/featuredEvents', function(data) {
       var evs = data.events;
-      var length = (evs.length > 6) ? 7 : evs.length;
+      var length = (evs.length > 3) ? 4 : evs.length;
       console.log(length);
       for (var i = length-1; i >= 0; i--) {
         var date = moment(evs[i].start).format("MMMM Do @ h:mm a");
         var anchor = $('<a href='+evs[i].url+'></a>');
         l = i;
         if (isMobile) l = 7;
-        var div = $("<div class='ev-box' data-aos='fade-left' data-aos-delay="+(0)+" data-aos-anchor-placement='center-bottom'></div>");
+        var div = $("<div class='ev-box' data-aos='fade-left' data-aos-delay="+(1400-l*200)+" data-aos-anchor-placement='center-bottom'></div>");
         if (evs[i].img) div.css("background-image", "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(" + evs[i].img + ")");
         div.append($("<h4></h4>").text(evs[i].title), $("<p></p>").text(date));
         anchor.append(div);
         if (i > 2) anchor.addClass("desktop-item");
-        $("#db-evs").append(anchor);
+        $("#featured-evs").append(anchor);
       }
+      var div = $("<div id='events-more' class='ev-box' data-aos='fade-left' data-aos-delay='1400' data-aos-anchor-placement='center-bottom'></div>");
+      div.css("background", "linear-gradient(rgba(25,25,25,0.8), rgba(25,25,25,0), rgba(25,25,25,0.8))");
+      div.append($("<h4></h4>").text("See More"), $("<p></p>").text("View calendar"));
+      $("#featured-evs").append(div);
       if (isMobile) $("#events-more div").attr("data-aos-delay", "0");
 
     });
@@ -251,7 +253,7 @@
       var panels = ["#tour-360","#food", "#beer", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#events-pu"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
-        if (p.hasClass("show")) p.toggleClass("show");
+        p.removeClass("show");
       }
       $(".spinner").removeClass("show");
     });
@@ -278,6 +280,9 @@
     });
 
     $("#contact").click(function() {
+      $("#menu").toggleClass("open");
+      $('.offscreen-nav').toggleClass("onscreen");
+      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
       $("#overlay").toggleClass("show");
       $("#contact-form").toggleClass("show");
       $("body").toggleClass("noscroll");
@@ -361,34 +366,24 @@
       }
     });
 
-    $("#contact-form-submit").click(function() {
+    $("#contact-fullscreen").submit(function(e) {
       var formData = {
-        name: $("#name").val(),
+        name: $("#first_name").val() + " " + $("#last_name").val(),
         email: $("#email").val(),
         phone: $("#phone").val(),
-        subject: $("#subject").val(),
         message: $("#message").val()
       }
 
-
       $.post("/backendServices/sendMessage", formData, function(data) {
-        var response;
-        var msg = {
-          "success": "Your message was sent",
-          "error": "please try sending an email to declan@theharpandfiddle.com instead!"
-        }
-        if (data.success) {
-          response = "success";
-          alert(reponse);
-        }
-        else {
-          response = "error";
-        }
-        swal("success", "message", "success");
-        $("#contact-inputs").toggleClass("hide");
-        swal("success1", "message", "success");
-        alert("test");
+        if (data.success) swal("Your message has been sent", "We will respond as soon as possible.", "success");
+        else swal("There was an error with our servers", "Please call (269) 469-6400 or email caseysnb136@gmail.com", "error");
+
+        $("#overlay").toggleClass("show");
+        $("body").toggleClass("noscroll");
+        $("#contact-form").removeClass("show");
       });
+
+      return false;
     });
 
     Date.prototype.yyyymmdd = function() {
