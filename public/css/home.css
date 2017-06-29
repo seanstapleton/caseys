@@ -22,7 +22,7 @@ p, h1, h2, h3, h4, h5, h6, td, a, li {
   height: 20vh;
   top: 0;
   left: 10px;
-  z-index: 100;
+  z-index: 98;
   cursor: pointer;
   animation-delay: 1.5s;
 }
@@ -121,12 +121,10 @@ a:hover {
   color: green;
 }
 .top-nav li:hover {
-  background-color: rgba(0,105,0,0.5);
-  color: #fff !important;
+  background-color: rgba(32,98,175,0.5);
   cursor: pointer;
 }
 .top-nav a {
-  color: #fff !important;
   cursor: pointer;
 }
 #close {
@@ -419,7 +417,6 @@ div.bar:not(:first-child) {
 #about iframe {
   width: 85%;
   margin-left: 7.5%;
-  height: 40vh;
   margin-bottom: 50px;
 }
 
@@ -584,7 +581,7 @@ div.bar:not(:first-child) {
 }
 #location-map iframe, .map-overlay {
   width: 100%;
-  min-height: 60vh;
+  height: 60vh;
   margin: 0;
 }
 #location-map {
@@ -744,6 +741,50 @@ div.bar:not(:first-child) {
     width: 50%;
     float: left;
   }
+}
+
+/* ----------------------------------------------
+------------- Photo Gallery Styles --------------
+---------------------------------------------- */
+#photos {
+  background-image: url("/img/backgrounds/paper.png");
+  background-repeat: repeat;
+  width: 100%;
+  min-height: 10vh;
+  padding: 1px 0;
+}
+#photos h1 {
+  color: #111;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 80px;
+}
+.photo-box {
+  width: 18%;
+  height: 30vh;
+  background-size: cover;
+  float: left;
+  cursor: pointer;
+}
+.photo-box:not(:nth-child(5n+1)) {
+  margin-left: 2.5%;
+}
+.photo-box:nth-child(n+6) {
+  margin-top: 2.5%;
+}
+#photos-container {
+  padding: 5%;
+  overflow: auto;
+}
+.top-nav {
+  width: calc(100% - 70px);
+}
+.nav-logo {
+  float: left !important;
+  padding: 10px 40px !important;
+}
+.top-nav img {
+  height: 50px;
 }
 
 /* ----------------------------------------------

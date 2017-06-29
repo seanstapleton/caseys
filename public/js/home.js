@@ -4,6 +4,19 @@
       duration: 1000
     });
 
+      $('a[href*="#"]:not([href="#"])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html, body').animate({
+              scrollTop: target.offset().top
+            }, 2000);
+            return false;
+          }
+        }
+      });
+
     $.fn.extend({
       animateCss: function (animationName) {
           var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -45,7 +58,6 @@
       $("body").toggleClass("noscroll");
 
       $.get('/backendServices/getEvents', function(data) {
-        console.log("data", data);
         for (var i = 0; i < data.length; i++) {
           data[i].start = new Date(data[i].start);
           data[i].end = new Date(data[i].end);
@@ -87,8 +99,12 @@
 
     $("#menu").click(function() {
       $(this).toggleClass("open");
-      $('.offscreen-nav').toggleClass("onscreen");
-      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      if (isMobile) {
+        $('.offscreen-nav').toggleClass("onscreen");
+        $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      } else {
+        $(".top-nav").animate({width: 'toggle'});
+      }
     });
 
     $(".offscreen-nav a").click(function() {
@@ -167,7 +183,6 @@
     $.get('/backendServices/featuredEvents', function(data) {
       var evs = data.events;
       var length = (evs.length > 3) ? 4 : evs.length;
-      console.log(length);
       for (var i = length-1; i >= 0; i--) {
         var date = moment(evs[i].start).format("MMMM Do @ h:mm a");
         var anchor = $('<a href='+evs[i].url+'></a>');
@@ -262,21 +277,6 @@
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
       $("#food").toggleClass("show");
-    });
-
-    $(function() {
-      $('a[href*="#"]:not([href="#"])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html, body').animate({
-              scrollTop: target.offset().top
-            }, 2000);
-            return false;
-          }
-        }
-      });
     });
 
     $("#contact").click(function() {
@@ -407,8 +407,6 @@
       var close = (day > 0 && day < 5) ? 21 : 22;
       var today = new moment();
       var time = (d.dayOfYear() == today.dayOfYear()) ? today.hours() : d.hours();
-      console.log("time: ", time);
-      console.log("minutes: ", d.minutes());
       $("#reserve-time-block").find("option").remove();
       if (d.minutes() < 30) {
         var am = (time < 12) ? "am" : "pm";

@@ -7,6 +7,7 @@ module.exports = function(db, passport) {
     var hoursSchema     = require('../models/hours.js');
     var menuSchema      = require('../models/menu.js');
     var eventsSchema    = require('../models/events.js');
+    var photosSchema    = require('../models/photos.js');
     var specialsSchema  = require('../models/specials.js');
     var messageSchema   = require('../models/message.js');
     var flash           = require('connect-flash');
@@ -79,6 +80,16 @@ module.exports = function(db, passport) {
               res.send(events);
             } else {
               res.end();
+            }
+        });
+    });
+
+    router.get('/getPhotos', function(req, res) {
+      photosSchema.find({}, {}, function(err, photos) {
+            if (photos) {
+              return res.send(photos);
+            } else {
+              return res.end();
             }
         });
     });

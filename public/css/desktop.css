@@ -195,7 +195,12 @@
     padding: 0;
     position: fixed;
     z-index: 99;
-    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.05)), url("/img/backgrounds/paper.png");
+    top: 0;
+    right: 70px;
+    display: none;
+    overflow: hidden;
+    max-height: 70px;
   }
   .sticky-wrapper.is-sticky .top-nav {
     position: fixed;
@@ -211,6 +216,12 @@
     display: inline-block;
     padding: 20px 40px;
     float: right;
+    color: #222;
+    line-height: 30px;
+  }
+  .top-nav a {
+    line-height: 30px;
+    color: #222;
   }
   #contact-topnav {
     cursor: pointer;
@@ -390,5 +401,78 @@
   }
   #ig-links {
     height: auto;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.05)), url("/img/backgrounds/paper.png");
+    padding: 20px;
+    z-index: 999;
+  }
+  #menu {
+    position: static;
+    top: 0;
+    right: 0;
+    height: 30px;
+    overflow: auto;
+    width: 30px;
+  }
+  #menu span {
+    background-color: #222;
+  }
+  #menu span:nth-child(even) {
+    left: 50%;
+  }
+  #menu span:nth-child(odd) {
+    left:0px;
+  }
+  #menu span:nth-child(1), #menu span:nth-child(2) {
+    top: 0px;
+  }
+  #menu span:nth-child(3), #menu span:nth-child(4) {
+    top: 12px;
+  }
+  #menu span:nth-child(5), #menu span:nth-child(6) {
+    top: 24px;
+  }
+  #menu.open span {
+    height: 4px;
+  }
+  #menu.open span:nth-child(1),#menu.open span:nth-child(6) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  #menu.open span:nth-child(2),#menu.open span:nth-child(5) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  #menu.open span:nth-child(1) {
+    left: 4px;
+    top: 6px;
+  }
+  #menu.open span:nth-child(2) {
+    left: calc(50% - 4px);
+    top: 6px;
+  }
+  #menu.open span:nth-child(3) {
+    left: -50%;
+    opacity: 0;
+  }
+  #menu.open span:nth-child(4) {
+    left: 100%;
+    opacity: 0;
+  }
+  #menu.open span:nth-child(5) {
+    left: 4px;
+    top: 14px;
+  }
+  #menu.open span:nth-child(6) {
+    left: calc(50% - 4px);
+    top: 14px;
   }
 }

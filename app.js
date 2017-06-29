@@ -44,6 +44,8 @@ module.exports = function(db) {
 
     app.use('/backendServices', backendServices(db, passport));
     app.get('/admin*', function(req,res) {res.sendFile(__dirname + '/public/admin.html'); })
+    app.get('/photo-gallery', function(req,res) {res.sendFile(__dirname + '/public/views/photos.html'); })
+    app.get('/jobs', function(req,res) {res.sendFile(__dirname + '/public/views/jobs.html'); })
     app.get('*', function(req,res) {res.sendFile(__dirname + '/public/index.html'); })
 
     //route static files
