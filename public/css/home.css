@@ -109,13 +109,13 @@ footer p {
   margin: 0 auto;
 }
 .desktop-item, .desktop-item-inline {
-  display: none !important;
+  display: none;
 }
 .mobile-item {
-  display: block !important;
+  display: block;
 }
 .mobile-item-inline {
-  display: inline-block !important;
+  display: inline-block;
 }
 a:hover {
   color: green;
@@ -129,6 +129,17 @@ a:hover {
 }
 #close {
   cursor: pointer;
+}
+.top-nav {
+  width: calc(100% - 70px);
+}
+.nav-logo {
+  float: left !important;
+  padding: 10px 40px !important;
+  background-color: transparent !important;
+}
+.top-nav img {
+  height: 50px;
 }
 
 /* ----------------------------------------------

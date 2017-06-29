@@ -155,8 +155,8 @@ module.exports = function(db, passport) {
       var result;
       var smtpTransporter = nodemailer.createTransport(mg(auth));
       var message = {
-        from: 'fiddlersonmain@gmail.com',
-        to: 'fiddlersonmain@gmail.com',
+        from: 'caseysnb136@gmail.com',
+        to: 'caseysnb136@gmail.com',
         subject: 'Caseys Contact Form: ' + data.name,
         text: "Name: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phnum + "\nMessage: " + data.message
       };
@@ -183,8 +183,8 @@ module.exports = function(db, passport) {
       var result;
       var smtpTransporter = nodemailer.createTransport(mg(auth));
       var message = {
-        from: 'fiddlersonmain@gmail.com',
-        to: 'fiddlersonmain@gmail.com',
+        from: 'caseysnb136@gmail.com',
+        to: 'caseysnb136@gmail.com',
         subject: 'Caseys Reservation: ' + data.name,
         text: "Date: " + data.date + "\nTime: " + data.time + "\nName: " + data.name + "\nEmail: " + data.email + "\nPhone Number: " + data.phnum + "\nParty Size: " + data.size
       };

@@ -33,6 +33,34 @@
         </script>
     </head>
     <body>
+      <div id="contact-overlay">
+        <p id="close">Close X</p>
+        <div id="contact-form">
+          <h1>Contact Us</h1>
+          <form id="contact-fullscreen" class="col-md-6">
+            <div id="contact-inputs">
+              <input required class="form-control" id="first_name" type="text" placeholder="First Name"/>
+              <input required class="form-control" id="last_name" type="text" placeholder="Last Name"/>
+              <input required class="form-control" id="email" type="email" placeholder="Email"/>
+              <input class="form-control" id="phone" type="tel" placeholder="Phone Number"/>
+              <textarea required class="form-control" id="message" placeholder="message"></textarea>
+              <button class="btn btn-primary">Send</button>
+            </div>
+          </form>
+          <div id="contact-form-info" class="col-md-6">
+            <div class="bar"></div>
+            <p>caseysnb136@gmail.com</p>
+            <p><a style="color: #333; font-weight: 400" href="tel:2694696400">(269) 469-6400</a></p>
+            <br/>
+            <p><span>Casey's Bar &amp Grill</span><span>136 N Whittaker St</span><span>New Buffalo, MI 49117</span>
+            <div class="bar"></div>
+            <img class="icon" src="/img/icons/fb-icon.svg"/>
+            <img class="icon" src="/img/icons/twitter-icon.svg"/>
+            <img class="icon" src="/img/icons/insta-icon.svg"/>
+            <p style="margin-left: 10px; float: left;">@theharpandfiddle</p>
+          </div>
+        </div>
+      </div>
       <div class="offscreen-nav-wrapper">
         <div class="offscreen-nav">
           <ul>
@@ -116,6 +144,7 @@
 <script src='/lib/aos/dist/aos.js'></script>
 <script src='/lib/slick-lightbox/slick-lightbox.min.js'></script>
 <script type="text/javascript" src="/lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="/lib/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
 
@@ -136,7 +165,7 @@
     });
 
     $(document).on('click','.photo-box', function() {
-      $("#overlay, #lightbox-container").toggleClass("show");
+      $("#contact-overlay, #lightbox-container").toggleClass("show");
       $("body").toggleClass("noscroll");
     });
 
@@ -150,6 +179,45 @@
       } else {
         $(".top-nav").animate({width: 'toggle'});
       }
+    });
+
+    $("#close").click(function() {
+      $("#contact-overlay").toggleClass("show");
+      $("body").toggleClass("noscroll");
+    });
+
+    $("#contact").click(function() {
+      $("#menu").toggleClass("open");
+      $('.offscreen-nav').toggleClass("onscreen");
+      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      $("#contact-overlay").toggleClass("show");
+      $("#contact-form").toggleClass("show");
+      $("body").toggleClass("noscroll");
+    });
+
+    $("#contact-topnav").click(function() {
+      $("#contact-overlay").toggleClass("show");
+      $("#contact-form").toggleClass("show");
+      $("body").toggleClass("noscroll");
+    });
+
+    $("#contact-fullscreen").submit(function(e) {
+      var formData = {
+        name: $("#first_name").val() + " " + $("#last_name").val(),
+        email: $("#email").val(),
+        phone: $("#phone").val(),
+        message: $("#message").val()
+      }
+
+      $.post("/backendServices/sendMessage", formData, function(data) {
+        $("#contact-overlay").toggleClass("show");
+        $("body").toggleClass("noscroll");
+        $("#contact-form").removeClass("show");
+        if (data.success) swal("Your message has been sent", "We will respond as soon as possible.", "success");
+        else swal("There was an error with our servers", "Please call (269) 469-6400 or email caseysnb136@gmail.com", "error");
+      });
+
+      return false;
     });
 
   });
