@@ -76,3 +76,31 @@
   </div>
 
 </section>
+<section id="photos" ng-if="userData.isLoggedIn && pageData.current == 'photos'">
+  <p class="dispControls">
+    <a>Card view</a> | <a>List view</a>
+  </p>
+  <h1>Photos</h1>
+  <select ng-model="photoData.order">
+    <option value="caption:false">Caption</option>
+    <option value="start:true" selected>Date (newest to oldest)</option>
+    <option value="start:false">Date (oldest to newest)</option>
+  </select>
+  <a ng-click="addPhoto()">Add photo</a>
+    <div class="photo-container" ng-repeat="photo in photos | orderBy:caption">
+      <div class="photo-overlay">
+        <div class="photo-edit" id="edit-{{photo._id}}" data-status="saved" ng-click="editPhoto(photo)"></div>
+        <div class="photo-delete" ng-click="deletePhoto(photo)"></div>
+      </div>
+      <div class="photo-box" style="background-image: url('{{photo.src}}')"></div>
+      <div class="photo-info">
+        <p>{{photo.caption}}</p>
+      </div>
+      <div class="photo-edit-info">
+        <input type="text" ng-model="photo.src" class="src-edit" placeholder="Paste source link here"/>
+        <input type="text" ng-model="photo.caption" class="caption-edit" placeholder="Add caption here"/>
+      </div>
+    </div>
+  </div>
+
+</section>

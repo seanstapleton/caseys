@@ -1,0 +1,67 @@
+#menu span {
+  background-color: #222;
+}
+.open#menu span {
+  background-color: #fff;
+}
+/* ----------------------------------------------
+------------- Photo Gallery Styles --------------
+---------------------------------------------- */
+#photos {
+  background-image: url("/img/backgrounds/paper.png");
+  background-repeat: repeat;
+  width: 100%;
+  min-height: 10vh;
+  padding: 1px 0;
+}
+#photos h1 {
+  color: #111;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 80px;
+}
+.photo-box {
+  width: 48.75%;
+  height: 30vh;
+  background-size: cover;
+  float: left;
+  cursor: pointer;
+}
+.photo-box:not(:nth-child(2n+1)) {
+  margin-left: 2.5%;
+}
+.photo-box:nth-child(n+3) {
+  margin-top: 2.5%;
+}
+#photos-container {
+  padding: 5%;
+  overflow: auto;
+}
+.top-nav {
+  width: calc(100% - 70px);
+}
+.nav-logo {
+  float: left !important;
+  padding: 10px 40px !important;
+}
+.top-nav img {
+  height: 50px;
+}
+@media (min-width: 968px) {
+  .photo-box {
+    width: 18%;
+    margin: 0;
+  }
+  .photo-box:not(:nth-child(2n+1)) {
+    margin-left: 0;
+  }
+  .photo-box:nth-child(n+3) {
+    margin-top: 0;
+  }
+  .photo-box:not(:nth-child(5n+1)) {
+    margin-left: 2.5%;
+  }
+  .photo-box:nth-child(n+6) {
+    margin-top: 2.5%;
+  }
+}

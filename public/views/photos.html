@@ -20,6 +20,7 @@
         <link rel='stylesheet' type="text/css" href='/lib/bootstrap/css/bootstrap.min.css'>
         <link rel='stylesheet' href='/css/home.css'>
         <link rel='stylesheet' href='/css/desktop.css'>
+        <link rel='stylesheet' href='/css/photos.css'>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -42,7 +43,7 @@
             <!-- <li><a href="#reservation-block">Reserve</a></li> -->
             <li><a href="#menus">Menus</a></li>
             <li id="contact" href="contact-form">Contact</li>
-            <li><a href="/jobs">Jobs</a></li>
+            <!-- <li><a href="/jobs">Jobs</a></li> -->
             <li><a href="/photo-gallery">Photos</a></li>
           </ul>
         </div>
@@ -54,7 +55,7 @@
       </nav>
 
       <div id="primary-container">
-        <div class="top-nav">
+        <div class="top-nav desktop-item">
           <ul>
             <li id="contact-topnav" href="contact-form">Contact</li>
             <li><a href="/jobs">Jobs</a></li>
@@ -123,7 +124,7 @@
     $.get("/backendServices/getPhotos", function(data) {
       for (var i = 0; i < data.length; i++) {
         var div = $("<div class='photo-box'></div>").css("background-image", "url('"+data[i].src+"')").attr("href", data[i].src).attr("data-aos", "zoom-in-up").attr("data-caption",data[i].caption);
-        $("#photos-container").append([div]);
+        $("#photos-container").append(div);
       }
       $(".photo-box").css("height",$(".photo-box").css("width"));
     });

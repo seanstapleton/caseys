@@ -142,6 +142,17 @@
           });
       }
 
+      $scope.loadPhotos = function() {
+        $http.get('/backendServices/getPhotos')
+          .then(function(res) {
+            if (res.data) {
+              $scope.photos = res.data;
+            }
+          });
+      }
+
+      $scope.loadPhotos();
+
       $scope.toggleEventUpload = function() {
         $scope.mode = "new";
         $(".overlay").toggleClass("show");
