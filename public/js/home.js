@@ -155,7 +155,7 @@
         overlay.attr("href", imgs[i].link);
         var likes = $("<p></p>").text(imgs[i].likes.count).addClass("insta-likes");
         var comments = $("<p></p>").text(imgs[i].comments.count).addClass("insta-comments");
-        var captionText = (imgs[i].caption.text.length > 100) ? imgs[i].caption.text.substring(0,100) + "..." : imgs[i].caption.text;
+        var captionText = (imgs[i].caption == null) ? "" : (imgs[i].caption.text.length > 100) ? imgs[i].caption.text.substring(0,100) + "..." : imgs[i].caption.text;
         var caption = $("<p></p>").text(captionText).addClass("insta-caption");
         overlay.append(likes,comments,caption);
         div.css("background-image", "url(" + imgs[i].images.standard_resolution.url+")");
