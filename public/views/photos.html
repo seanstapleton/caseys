@@ -151,8 +151,9 @@
     AOS.init();
 
     $.get("/backendServices/getPhotos", function(data) {
+      console.log(data);
       for (var i = 0; i < data.length; i++) {
-        var div = $("<div class='photo-box'></div>").css("background-image", "url('"+data[i].src+"')").attr("href", data[i].src).attr("data-aos", "zoom-in-up").attr("data-caption",data[i].caption);
+        var div = $("<div class='photo-box'></div>").css("background-image", "url('"+data[i].thumbnail+"')").attr("href", data[i].src).attr("data-aos", "zoom-in-up").attr("data-caption",data[i].caption);
         $("#photos-container").append(div);
       }
       $(".photo-box").css("height",$(".photo-box").css("width"));

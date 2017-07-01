@@ -16,6 +16,8 @@ module.exports = function(db, passport) {
     var validator       = require('validator');
     var path            = require('path');
     var mg              = require('nodemailer-mailgun-transport');
+    var Dropbox         = require('dropbox');
+    var dbx             = new Dropbox({ accessToken: process.env.db_access });
 
     router.post('/insta', function(req, response, next) {
 
@@ -85,11 +87,33 @@ module.exports = function(db, passport) {
     });
 
     router.get('/getPhotos', function(req, res) {
+      // dbx.filesListFolder({path: '/photo_gallery'})
+      //   .then(function(data) {
+      //     var promises = [];
+      //     for (var i = 0; i < data.entries.length; i++) {
+      //       var pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
+      //       promises.push(pr);
+      //     }
+      //     console.log("yo");
+      //     Promise.all(promises)
+      //       .then(function(values) {
+      //         console.log("ay");
+      //         for (var j = 0; j < values.length; j++) {
+      //             var idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
+      //             var photo = new photosSchema({
+      //               src: "https://dl.dropboxusercontent" + values[j][0].url.substring(idx[0]),
+      //               thumbnail: "https://dl.dropboxusercontent" + values[j][1].url.substring(idx[1])
+      //             });
+      //             photo.save();
+      //         }
+      //       });
+      //   });
+
       photosSchema.find({}, {}, function(err, photos) {
             if (photos) {
-              return res.send(photos);
+              res.send(photos);
             } else {
-              return res.end();
+              res.end();
             }
         });
     });
