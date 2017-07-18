@@ -19,6 +19,28 @@ module.exports = function(db, passport) {
     var Dropbox         = require('dropbox');
     var dbx             = new Dropbox({ accessToken: process.env.db_access });
 
+    // dbx.filesListFolder({path: '/photo_gallery'})
+    //   .then(function(data) {
+    //     var promises = [];
+    //     for (var i = 0; i < data.entries.length; i++) {
+    //       var pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
+    //       promises.push(pr);
+    //     }
+    //     console.log("yo");
+    //     Promise.all(promises)
+    //       .then(function(values) {
+    //         console.log("ay");
+    //         for (var j = 0; j < values.length; j++) {
+    //             var idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
+    //             var photo = new photosSchema({
+    //               src: "https://dl.dropboxusercontent" + values[j][0].url.substring(idx[0]),
+    //               thumbnail: "https://dl.dropboxusercontent" + values[j][1].url.substring(idx[1])
+    //             });
+    //             photo.save();
+    //         }
+    //       });
+    //   });
+
     router.post('/insta', function(req, response, next) {
 
       const https = require('https');
