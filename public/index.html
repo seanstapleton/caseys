@@ -32,7 +32,7 @@
     <body>
       <div id="overlay">
         <p id="close">Close X</p>
-        <div id="contact-form">
+        <div id="contact-form" class="animated fadeInUp">
           <h1>Contact Us</h1>
           <form id="contact-fullscreen" class="col-md-6">
             <div id="contact-inputs">
@@ -56,6 +56,29 @@
             <img class="icon" src="/img/icons/insta-icon.svg"/>
             <p style="margin-left: 10px; float: left;">@theharpandfiddle</p>
           </div>
+        </div>
+
+        <div id="job-form" class="animated fadeInUp">
+          <h1>Job Application</h1>
+          <form>
+            <input required class="form-control form-50" id="job_first_name" type="text" placeholder="First Name"/>
+            <input required class="form-control form-50" id="job_last_name" type="text" placeholder="Last Name"/>
+            <input required class="form-control" id="job_email" type="email" placeholder="Email"/>
+            <input required class="form-control" id="job_phone" type="tel" placeholder="Phone Number"/>
+            <select required class="form-control" id="job_position">
+              <option disabled selected>Please select a desired position</option>
+              <option value="assistant manager">Assistant Manager</option>
+              <option value="host/hostess">Host/Hostess</option>
+              <option value="server">Server</option>
+              <option value="busser">Busser</option>
+              <option value="line cook">Line Cook</option>
+              <option value="dishwasher">Dishwasher</option>
+              <option value="expediter">Food expediter</option>
+              <option value="no preference">No Preference</option>
+            </select>
+            <textarea class="form-control" id="job_message" placeholder="Message (optional)"></textarea>
+            <button class="btn btn-primary" type="submit">Apply</button>
+          </form>
         </div>
 
         <div id="tour-360">
@@ -84,10 +107,10 @@
             <li><a href="#events">Events</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social</a></li>
-            <!-- <li><a href="#reservation-block">Reserve</a></li> -->
             <li><a href="#menus">Menus</a></li>
             <li id="contact" href="contact-form">Contact</li>
             <li><a href="/photo-gallery">Photos</a></li>
+            <li class="jobs-trigger">Jobs</li>
           </ul>
         </div>
       </div>
@@ -102,7 +125,7 @@
       <div id="primary-container">
         <div class="top-nav">
           <ul>
-            <!-- <li><a href="/jobs">Jobs</a></li> -->
+            <li class="jobs-trigger">Jobs</li>
             <li><a href="/photo-gallery">Photos</a></li>
             <li id="contact-topnav" href="contact-form">Contact</li>
             <!-- <li><a href="https://www.yelp.com/reservations/the-harp-and-fiddle-park-ridge" target="_blank">Reserve</a></li> -->

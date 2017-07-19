@@ -267,12 +267,47 @@
     $("#close").click(function() {
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
-      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#events-pu"];
+      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#job-form", "#events-pu"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
         p.removeClass("show");
       }
       $(".spinner").removeClass("show");
+    });
+
+    $("#job-form form").submit(function(e) {
+      var appData = {
+        first_name: $("#job_first_name").val(),
+        last_name: $("#job_last_name").val(),
+        email: $("#job_email").val(),
+        phnum: $("#job_phone").val(),
+        position: $("#job_position").val(),
+        message: $("#job_message").val()
+      }
+      $.post("/backendServices/applyToWork", appData, function(res) {
+        if (res.success) {
+          swal({
+            title: "Your application has been submitted",
+            text: "Please print and fill out the following form using the link provided. We will contact you soon. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
+            html: true,
+            type: "success"
+          });
+        } else {
+          swal({
+            title: "Unfortunately, there was an error with our servers",
+            text: "Please print and fill out the following form using the link provided. Then, call us at (269) 469-6400 or email us at caseysnb136@gmail.com. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
+            html: true,
+            type: "error"
+          });
+          console.log(res.err);
+        }
+
+        $("#overlay").toggleClass("show");
+        $("body").toggleClass("noscroll");
+        $("#job-form").removeClass("show");
+      });
+
+      return false;
     });
 
     $("#btn-oo").click(function() {
@@ -287,6 +322,15 @@
       $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
       $("#overlay").toggleClass("show");
       $("#contact-form").toggleClass("show");
+      $("body").toggleClass("noscroll");
+    });
+
+    $(".jobs-trigger").click(function() {
+      $("#menu").toggleClass("open");
+      $('.offscreen-nav').toggleClass("onscreen");
+      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      $("#overlay").toggleClass("show");
+      $("#job-form").toggleClass("show");
       $("body").toggleClass("noscroll");
     });
 

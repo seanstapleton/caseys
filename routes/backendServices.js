@@ -10,6 +10,7 @@ module.exports = function(db, passport) {
     var photosSchema    = require('../models/photos.js');
     var specialsSchema  = require('../models/specials.js');
     var messageSchema   = require('../models/message.js');
+    var applicantSchema   = require('../models/applicant.js');
     var flash           = require('connect-flash');
     var https           = require('https');
     var Dropbox         = require('dropbox');
@@ -216,6 +217,37 @@ module.exports = function(db, passport) {
             return res.send({success: true});
          }
       });
+    });
+
+    router.post('/applyToWork', function(req, res, next) {
+      var auth = {
+        auth: {
+          api_key: process.env.api_key,
+          domain: process.env.domain
+        }
+      }
+      var data = req.body;
+      if (!data.message) data.message = "Not given";
+      var smtpTransporter = nodemailer.createTransport(mg(auth));
+      var message = {
+        from: 'caseysnb136@gmail.com',
+        to: 'caseysnb136@gmail.com',
+        subject: 'Job Application: ' + data.first_name + " " + data.last_name,
+        text: "Name: " + data.first_name + " " + data.last_name + "\nEmail: " + data.email + "\nPhone Number: " + data.phnum + "\nDesired Position: " + data.position + "\nMessage: " + data.message
+      };
+
+      smtpTransporter.sendMail(message, function(err, info) {
+         if (err) {
+            console.log(err);
+            return res.send({success: false, err: err});
+         } else {
+            console.log(info);
+            return res.send({success: true});
+         }
+      });
+
+      var applicant = new applicantSchema(data);
+      applicant.save();
     });
 
     router.post('/reserveTable', function(req, res, next) {

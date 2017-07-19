@@ -130,9 +130,9 @@ a:hover {
 #close {
   cursor: pointer;
 }
-.top-nav {
+/*.top-nav {
   width: calc(100% - 70px);
-}
+}*/
 .nav-logo {
   float: left !important;
   padding: 10px 40px !important;
@@ -249,6 +249,40 @@ div.ui-datepicker {
   padding-bottom: 50px;
   display: none;
   overflow: auto;
+}
+#job-form {
+  background-image: url("/img/backgrounds/paper.png");
+  background-repeat: repeat;
+  width: 90%;
+  margin: 3vh auto;
+  padding: 40px;
+  padding-bottom: 50px;
+  display: none;
+  overflow: auto;
+}
+#job-form h1 {
+  color: #222;
+}
+#job-form input, #job-form textarea, #job-form select {
+  width: 100%;
+  margin: 10px auto;
+  border: none;
+  border-radius: 0;
+  padding: 25px 20px;
+}
+#job-form select {
+  height: 50px;
+  padding: 0 16px;
+}
+#job-form button {
+  padding: 10px 40px;
+}
+.form-50 {
+  float: left !important;
+  width: calc(50% - 5px) !important;
+}
+.form-50:nth-child(2n) {
+  margin-left: 10px !important;
 }
 #contact-form h1 {
   font-size: 4em;
