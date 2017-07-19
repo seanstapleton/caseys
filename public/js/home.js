@@ -291,6 +291,8 @@
             text: "Please print and fill out the following form using the link provided. We will contact you soon. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
             html: true,
             type: "success"
+          }, function() {
+            window.open("/img/caseys_application_for_employment.pdf", "_blank");
           });
         } else {
           swal({
@@ -298,6 +300,8 @@
             text: "Please print and fill out the following form using the link provided. Then, call us at (269) 469-6400 or email us at caseysnb136@gmail.com. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
             html: true,
             type: "error"
+          }, function() {
+            window.open("/img/caseys_application_for_employment.pdf", "_blank");
           });
           console.log(res.err);
         }
