@@ -330,9 +330,11 @@
     });
 
     $(".jobs-trigger").click(function() {
-      $("#menu").toggleClass("open");
-      $('.offscreen-nav').toggleClass("onscreen");
-      $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      if ($(this).hasClass("nav-item")) {
+        $("#menu").toggleClass("open");
+        $('.offscreen-nav').toggleClass("onscreen");
+        $('.offscreen-nav-wrapper').toggleClass("onscreen-wrapper");
+      }
       $("#overlay").toggleClass("show");
       $("#job-form").toggleClass("show");
       $("body").toggleClass("noscroll");

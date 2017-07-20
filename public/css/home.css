@@ -173,13 +173,20 @@ a:hover {
   padding: 4vh;
   background: #333;
   color: #ccc;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .onscreen {
   right: 0;
 }
 .top-nav {
   display: none;
+}
+.popup-ll {
+  position: absolute !important;
+  right: 25px !important;
+  bottom: 25px !important;
+  width: 120px !important;
+  cursor: pointer;
 }
 
 /* ----------------------------------------------
