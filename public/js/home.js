@@ -288,7 +288,7 @@
         if (res.success) {
           swal({
             title: "Your application has been submitted",
-            text: "Please print and fill out the following form using the link provided. We will contact you soon. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
+            text: "Please print and fill out the application form below and email to caseysnb136@gmail.com. We will contact you soon. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
             html: true,
             type: "success"
           }, function() {
@@ -297,7 +297,7 @@
         } else {
           swal({
             title: "Unfortunately, there was an error with our servers",
-            text: "Please print and fill out the following form using the link provided. Then, call us at (269) 469-6400 or email us at caseysnb136@gmail.com. <br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
+            text: "Please print & fill out the application form below and email to caseysnb136@gmail.com.<br/><a style='color: #2F61DB' href='/img/caseys_application_for_employment.pdf' target='_blank'>Caseys's Job Application</a>",
             html: true,
             type: "error"
           }, function() {
