@@ -27,6 +27,29 @@
       $("#previewWindow").css("background-image", "url("+$scope.linkDrivePhoto($scope.imageEditData.current)+")")
     }
 
+    $scope.toggleActive = function(party) {
+      party.active = !party.active;
+      $("#party-" + party._id + " .party-info-ext").slideToggle();
+    }
+
+    $scope.loadLogs = function() {
+      $http.get('/backendServices/getLogs')
+        .then(function(res) {
+          if (res.data) {
+            $scope.pageData.logs = res.data;
+          }
+        });
+    }
+
+    $scope.loadParties = function() {
+      $http.get('/backendServices/getParties')
+        .then(function(res) {
+          if (res.data) {
+            $scope.pageData.parties = res.data;
+          }
+        });
+    }
+
     $scope.addEvent = function() {
         var formData = {
           title: "Untitled (New)",
@@ -50,18 +73,43 @@
         $scope.loadEvents();
     }
 
+    $scope.duplicateEvent = function(ev) {
+      $http.post('/backendServices/addEvent', ev)
+        .then(function(res) {
+          if (res.data.success) {
+            $scope.loadEvents();
+          } else {
+            console.log("Error 500");
+          }
+        });
+    }
+
+    $scope.addParty = function() {
+        var formData = {
+          title: "Untitled (new)",
+        }
+        $http.post('/backendServices/addParty', formData)
+          .then(function(res) {
+            if (res.data.success) {
+              $scope.loadParties();
+            } else {
+              console.log("Error 500");
+            }
+          });
+    }
+
     $scope.addItem = function() {
         var formData = {
           title: "Untitled",
           desc: "Type description here",
           price: "0.00",
-          tags: ["appetizers"],
+          tags: [],
           availabilities: []
         }
         $http.post('/backendServices/addItem', formData)
           .then(function(res) {
             if (res.data.success) {
-              $scope.loadItems();
+              $scope.items.push(res.data.item);3
             } else {
               console.log("Error 500");
             }
@@ -74,8 +122,19 @@
           console.log(res.data);
           if (!res.data.loggedIn)
             $window.location = "/admin";
-          else
+          else {
             $scope.userData.isLoggedIn = true;
+
+            $http.get("/backendServices/getUser")
+              .then(function(res) {
+                console.log(res);
+                if (res.data.success) {
+                  $scope.userData.user = res.data.user;
+                } else {
+                  console.log("Error: ", res.data.err);
+                }
+              })
+          }
         });
     }
 
@@ -87,7 +146,7 @@
       }
     }
 
-    $scope.checkStatus();
+     $scope.checkStatus();
 
       $scope.loadEvents = function() {
         $http.get('/backendServices/getEvents')
@@ -133,25 +192,44 @@
         });
       }
 
+      $scope.tagShown = function(item) {
+        if (item.tags.length == 0 || typeof(item.tags) == "string") return true;
+        for (var i = 0; i < item.tags.length; i++) {
+          if ($scope.uniqMenuTags.findIndex(function(menuItem) { return menuItem.tag == item.tags[i] }) == -1) {
+            $scope.uniqMenuTags.push({tag: item.tags[i], active: false});
+          }
+          if ($.inArray(item.tags[i], $scope.menuTagsShown) > -1) return true;
+        }
+        return false;
+      }
+
+      $scope.toggleMenuTag = function(tag) {
+        var idx = $.inArray(tag.tag, $scope.menuTagsShown);
+        if (tag.active) delete $scope.menuTagsShown[idx];
+        else $scope.menuTagsShown.push(tag.tag);
+        tag.active = !tag.active;
+      }
+
       $scope.loadItems = function() {
         $http.get('/backendServices/getItems')
           .then(function(res) {
             if (res.data) {
               $scope.items = res.data;
+              var uniqTags = [];
+              for (var i = 0; i < $scope.items.length; i++) {
+                for (var j = 0; j < $scope.items[i].tags.length; j++) {
+                  var tag = $scope.items[i].tags[j];
+                  if ($.grep(uniqTags, function(e) { return e.tag == tag}).length == 0) {
+                    uniqTags.push({tag: tag, active: false});
+                  }
+                }
+              }
+              $scope.uniqMenuTags = uniqTags;
+              $scope.uniqMenuTags[0].active = true;
+              $scope.menuTagsShown = [$scope.uniqMenuTags[0].tag];
             }
           });
       }
-
-      $scope.loadPhotos = function() {
-        $http.get('/backendServices/getPhotos')
-          .then(function(res) {
-            if (res.data) {
-              $scope.photos = res.data;
-            }
-          });
-      }
-
-      $scope.loadPhotos();
 
       $scope.toggleEventUpload = function() {
         $scope.mode = "new";
@@ -162,6 +240,90 @@
 
       $scope.collapseEvs = function() {
         $(".collapsable-ev").toggleClass("hide");
+      }
+
+      $scope.editParty = function(party) {
+        var element = $("#edit-" + party._id);
+        if (party.status != "edited") {
+          party.status = "edited";
+          element.attr("data-status", "edited");
+
+          //for all date values, dateval.value = date.substring(0,16)
+          if (party.booking_date != null)
+            $("#booking_date-" + party._id).val(party.booking_date);
+          if (party.event_info.date != null)
+            $("#party-date-" + party._id).val(party.event_info.date.substring(0,16));
+          if (party.admin_info.initial_request != null)
+            $("#initial-request-" + party._id).val(party.admin_info.initial_request.substring(0,16));
+
+        } else if (party.status == "edited") {
+          party.status = "saved";
+          element.attr("data-status", "saved");
+
+          //for all date vals, dateval = date_element.val()
+          if ($("#booking_date-" + party._id).val().length > 0) {
+            party.booking_date = $("#booking_date-" + party._id).val();
+            console.log($("#booking_date-" + party._id).val());
+          }
+          if ($("#party-date-" + party._id).val().length > 0)
+            party.event_info.date = $("#party-date-" + party._id).val();
+
+          if (typeof party.food.food_selections == "string")
+            party.food.food_selections = party.food.food_selections.split(",");
+
+          if (party.admin_info.party_size_confirmation.val != party.confirmations.party_size) {
+            party.admin_info.party_size_confirmation.date = new Date();
+            if ($scope.userData.name) {
+              party.admin_info.party_size_confirmation.admin = $scope.userData.name;
+            }
+          }
+
+          if (party.admin_info.food_selections_confirmation.val != party.confirmations.food_selections) {
+            party.admin_info.food_selections_confirmation.date = new Date();
+            if ($scope.userData.name) {
+              party.admin_info.food_selections_confirmation.admin = $scope.userData.name;
+            }
+          }
+
+          $http.post("/backendServices/editParty", party)
+            .then(function(res) {
+              if (!res.data.success) {
+                alert("Sorry, your change was unsuccessful.");
+              }
+            });
+        }
+      }
+
+      $scope.prepParty = function(party) {
+        party.confirmations = {
+          party_size: party.admin_info.party_size_confirmation.val,
+          food_selections: party.admin_info.food_selections_confirmation.val
+        }
+      }
+
+      $scope.deleteParty = function(party) {
+        swal({
+          title: "Are you sure?",
+          text: "You will not be able to recover this party!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+        },
+        function(){
+          $http.post('/backendServices/deleteParty', party)
+            .then(function(res) {
+              if (res.data.success) {
+                swal("Deleted!", "Your party has been deleted.", "success");
+                $scope.loadParties();
+              } else {
+                swal("Error", "Unfortunately your party could not be deleted", "error");
+                console.log(res.data.err);
+                $scope.loadParties();
+              }
+            });
+          });
       }
 
       $scope.editEvent = function(ev) {
@@ -210,6 +372,11 @@
           item.status = "saved";
           el.attr("data-status", "saved");
 
+          if (item.tags.length > 0 && typeof(item.tags) == "string") {
+            item.tags.replace(/\s/g,'');
+            item.tags = item.tags.split(",");
+          }
+
           var upItem = {
             "_id": item._id,
             title: item.title,
@@ -223,7 +390,12 @@
             .then(function(res) {
               if (!res.data.success) {
                 alert("Sorry, your change was unsuccessful.");
-              } else loadItems();
+              } else {
+                var idx = $scope.items.findIndex(function(i) { return i._id == res.data.item._id });
+                console.log(idx, res.data.item);
+                $scope.items[idx] = res.data.item;
+                console.log($scope.items[idx]);
+              }
             });
         }
       }
@@ -264,6 +436,32 @@
                 swal("Error", "Unfortunately your event could not be deleted", "error");
                 console.log(res.data.err);
                 $scope.loadEvents();
+              }
+            });
+          });
+      };
+
+      $scope.deleteItem = function(item) {
+
+        swal({
+          title: "Are you sure?",
+          text: "You will not be able to recover this item!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+        },
+        function(){
+          $http.post('/backendServices/deleteMenuItem', item)
+            .then(function(res) {
+              if (res.data.success) {
+                swal("Deleted!", "Your item has been deleted.", "success");
+                var idx = $scope.items.findIndex(function(i) { return i._id == res.data.item._id });
+                delete $scope.items[idx];
+              } else {
+                swal("Error", "Unfortunately your item could not be deleted", "error");
+                console.log(res.data.err);
               }
             });
           });
@@ -328,7 +526,6 @@
       }
 
       $scope.loadEvents();
-      $scope.loadItems();
     }]);
 
     app.filter('dateInMillis', function() {

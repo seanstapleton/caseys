@@ -9,7 +9,7 @@
               password: $scope.password,
           }).then(function(res) {
               if(res.data.success) {
-                  $window.location = '/admin/dash';
+                  $window.location = '/admin/events';
               } else {
                   $scope.loginError = true;
                   $scope.loginStatus.internalServerError = true;

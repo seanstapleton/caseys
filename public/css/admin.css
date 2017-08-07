@@ -1,14 +1,80 @@
 body {
-  background-color: rgba(240,240,240,1);
+  background-color: rgba(230,230,230,1);
+  overflow-x: hidden;
+}
+.container {
+  margin: 0 !important;
+  padding: 10px;
+  width: 100%;
 }
 td {
   max-width: 20px;
   overflow: auto;
 }
+.login-container {
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/img/backgrounds/op/distillery-barrels.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  padding-top: 15vh;
+}
+.login-panel input {
+  background-color: rgba(255,255,255,0);
+  transition: background-color 1s;
+  border: none;
+  border-bottom: 2px solid #fff;
+  border-radius: 0;
+  padding: 20px;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  font-size: 1.25em;
+  color: #fff;
+}
+.login-panel input:focus {
+  outline: none;
+  background-color: rgba(240,240,240,0.8);
+  color: #111;
+}
+.login-panel input:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #333;
+}
+.login-panel input:focus::-moz-placeholder { /* Firefox 19+ */
+  color: #333;
+}
+.login-panel input:focus:-ms-input-placeholder { /* IE 10+ */
+  color: #333;
+}
+.login-panel input:focus:-moz-placeholder { /* Firefox 18- */
+  color: #333;
+}
+.login-panel input:not(:first-child) {
+  margin-top: 20px;
+}
+.login-panel button {
+  width: 100% !important;
+  background-color: #337ab7 !important;
+  opacity: 1 !important;
+  padding: 10px !important;
+  margin-left: 0 !important;
+  margin-top: 40px !important;
+  border: none !important;
+}
+.img-small {
+  width: 30%;
+}
+.menu-tag-selector {
+  font-size: 0.4em !important;
+  line-height: 1em !important;
+  font-weight: 400;
+  cursor: pointer;
+  display: inline-block;
+}
+.tag.inactive {
+  background-color: #A6CDDB !important;
+}
 #primary {
   margin-top: 5vh;
   margin-bottom: 5vh;
-  padding: 10px 40px;
 }
 .active {
   background-color: #45A5F7 !important;
@@ -103,13 +169,19 @@ input[type=checkbox] {
   margin: auto;
   text-align: center;
 }
-
+.show-more {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 10px;
+  font-family: 'Open Sans';
+  font-size: 1.5em;
+}
 
 
 .event-card, .item-card {
   width: 100%;
   margin: 0 auto;
-  background-color: rgba(230,230,230,1);
+  background-color: #eee;
   padding: 10px;
   margin: 10px 0;
   border-radius: 10px;
@@ -120,6 +192,17 @@ input[type=checkbox] {
   width: 40px;
   min-height: 40px;
   position: absolute;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+}
+.event-dup {
+  position: absolute;
+  width: 30px;
+  height: 30px !important;
+  bottom: 10px;
+  right: 10px;
+  background-image: url("/img/icons/dup.svg");
   background-size: cover;
   background-position: center center;
   cursor: pointer;
@@ -151,14 +234,14 @@ input[type=checkbox] {
 }
 .event-img {
   float: left;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-size: cover;
 }
 .event-info, .event-edit-info, .item-info, .item-edit-info {
   float: left;
   padding: 10px;
-  width: calc(100% - 200px);
+  width: calc(100% - 100px);
 }
 .event-info h5, input.title-edit, .item-info h5 {
   font-size: 2em;
@@ -189,12 +272,112 @@ input[type=checkbox] {
   border-radius: 5px;
   margin-right: 2px;
 }
-.photo-container {
-  width: 18%;
-  height: 20vh;
-}
-.photo-box {
-  background-size: cover;
+.party-container {
   width: 100%;
-  height: 80%;
+  border-radius: 10px;
+  cursor: pointer;
+  float: left;
+  transition: width 1s;
+}
+.party-container-parent {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  overflow: auto;
+}
+.party-header {
+  width: 100%;
+  padding: 20px;
+  background-color: #ddd;
+  overflow: auto;
+  border-radius: 10px;
+}
+.party-info-ext {
+  padding: 20px;
+  background-image: url("/img/backgrounds/paper.png");
+  display: none;
+}
+.party-container:not(:nth-child(4n)) {
+  margin-left: 10px;
+}
+.party-container {
+  margin-top: 10px;
+}
+.party-container.party-active {
+  width: 100%;
+}
+.party-container.party-active .party-header {
+  border-radius: 10px 10px 0 0;
+}
+.party-container h4 {
+  font-size: 1.5em;
+}
+.party-container p {
+  color: #555;
+  font-size: 1em;
+}
+span.party-size, span.party-location {
+  line-height: 35px;
+  float: left;
+}
+span.party-location {
+  margin-left: 5px;
+}
+span.party-size:before, span.party-location:before {
+  content: '';
+  width: 40px;
+  height: 35px;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  display: block;
+  float: left;
+  padding-right: 5px;
+}
+span.party-size:before {
+  background-image: url("/img/icons/person.svg");
+}
+span.party-location:before {
+  background-image: url("/img/icons/location.svg");
+}
+span.food-selection:not(:last-child):after {
+  content: ', ';
+}
+.party-event-info, .party-drink-info, .party-food-info, .party-admin-info {
+  margin: 10px 20px;
+  padding: 10px;
+  background-color: rgba(230,230,230,1);
+}
+.party-event-info p:last-child, .party-drink-info p:last-child, .party-food-info p:last-child, .party-admin-info p:last-child {
+  margin: 0;
+}
+.party-guests-adults:after {
+  content: " (adults)";
+}
+.party-guests-kids:after {
+  content: " (kids)";
+}
+
+@media (min-width: 960px) {
+  .party-container h4 {
+    font-size: 2em;
+    line-height: 0.75em;
+  }
+  span.party-size:before, span.party-location:before {
+    width: 15px;
+    height: 10px;
+    background-size: 10px 10px;
+  }
+  span.party-size, span.party-location {
+    line-height: 10px;
+  }
+  .event-img {
+    width: 200px;
+    height: 200px;
+  }
+  .event-info, .event-edit-info, .item-info, .item-edit-info {
+    width: calc(100% - 200px);
+  }
+  .container {
+    padding: 40px;
+  }
 }

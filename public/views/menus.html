@@ -1,0 +1,25 @@
+<section id="menus" ng-if="userData.isLoggedIn" ng-init="loadItems()">
+  <p class="dispControls">
+    <a>Card view</a> | <a>List view</a>
+  </p>
+  <h1>Menus <span class="tag menu-tag-selector" ng-class="{inactive: tag.active == false}" id="menuTagSel-{{tag.tag}}" ng-click="toggleMenuTag(tag)" ng-repeat="tag in uniqMenuTags">{{tag.tag}}</span></h1>
+  <a ng-click="addItem()" ng-if="userData.user.admin" style="cursor: pointer;">Add new item</a>
+
+    <div class="item-card" ng-repeat="item in items | filter:tagShown | orderBy:title">
+      <div ng-if="userData.user.admin" class="item-edit" id="edit-{{item._id}}" data-status="saved" ng-click="editItem(item)"></div>
+      <div ng-if="userData.user.admin" class="item-delete" ng-click="deleteItem(item)"></div>
+      <div class="item-info" ng-show="item.status != 'edited'">
+        <h5>{{item.title}}</h5>
+        <p>{{item.desc}}</p>
+        <p>{{item.price}}</p>
+        <p><span class="tag" ng-repeat="tag in item.tags">{{tag}}</span></p>
+      </div>
+      <div class="item-edit-info" ng-show="item.status == 'edited'">
+        <input type="text" ng-model="item.title" class="title-edit" placeholder="Type title here"/>
+        <input type="text" ng-model="item.desc" class="description-edit" placeholder="Type description"/>
+        <input type="text" ng-model="item.price" class="price-edit" placeholder="Add price"/>
+        <input type="text" ng-model="item.tags" class="tags-edit" placeholder="Add tags"/>
+      </div>
+    </div>
+  </div>
+</section>

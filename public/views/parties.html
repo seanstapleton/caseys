@@ -1,0 +1,91 @@
+<div ng-init="loadParties()">
+  <button ng-click="addParty()" ng-if="userData.user.admin">Add new party</button>
+  <div class="party-container-parent" ng-repeat="party in pageData.parties" ng-init="prepParty(party)">
+    <div class="event-edit" ng-if="userData.user.admin" id="edit-{{party._id}}" data-status="saved" ng-click="editParty(party)"></div>
+    <div class="event-delete" ng-if="userData.user.admin" ng-click="deleteParty(party)"></div>
+    <div id="party-{{party._id}}" class="party-container" ng-class="{'party-active': party.active}">
+      <div class="party-header" ng-click="toggleActive(party)">
+        <h4 ng-show="party.status != 'edited'">{{party.title}}</h4>
+        <input type="text" style="font-size: 2em" ng-model="party.title" placeholder="Party title" ng-show="party.status == 'edited'"/>
+        <p>{{party.booking_date | date:'mediumDate'}}</p>
+        <p><span class="party-size">{{party.event_info.num_guests.adults + party.event_info.num_guests.kids}}</span><span class="party-location">{{party.event_info.location}}</span>
+      </div>
+      <div id="party-{{party._id}}" class="party-info-ext" ng-show="party.status != 'edited'">
+        <p><strong>Booked by: </strong>{{party.booked_by}}</p>
+        <p><strong>Booking Date: </strong>{{party.booking_date | date:'mediumDate'}}</p>
+        <p><strong>Host name: </strong>{{party.host_name}}</p>
+        <p><strong>Host phone number: </strong>{{party.host_phone}}</p>
+        <p><strong>Host email: </strong>{{party.host_email}}</p>
+        <p><strong>Event info: </strong></p>
+        <div class="party-event-info">
+          <p><strong>Description: </strong>{{party.event_info.description}}</p>
+          <p><strong>Date: </strong>{{party.event_info.date}}</p>
+          <p><strong>Location: </strong>{{party.event_info.location}}</p>
+          <p><strong>Number of guests: </strong><span class="party-guests-adults">{{party.event_info.num_guests.adults}}</span> <span class="party-guests-kids">{{party.event_info.num_guests.kids}}</span></p>
+        </div>
+        <p><strong>Drink info: </strong></p>
+        <div class="party-drink-info">
+          <p><strong>Package Type: </strong>{{party.drinks.package_type}}</p>
+          <p><strong>Price per person: </strong>{{party.drinks.unit_price}}</p>
+          <p><strong>Method of payment: </strong>{{party.drinks.payment_method}}</p>
+          <p><strong>Other: </strong>{{party.drinks.other}}</p>
+        </div>
+        <p><strong>Food info: </strong></p>
+        <div class="party-food-info">
+          <p><strong>Package type: </strong>{{party.food.package_type}}</p>
+          <p><strong>Serving type: </strong>{{party.food.serving_type}}</p>
+          <p><strong>Price per person: </strong><span class="party-guests-adults">{{party.food.price.adult}}</span> <span class="party-guests-kids">{{party.food.price.kid}}</span></p>
+          <p><strong>Method of payment: </strong>{{party.food.payment}}</p>
+          <p><strong>Food selections: </strong><span class="food-selection" ng-repeat="item in party.food.food_selections">{{item}}</span></p>
+        </div>
+        <p><strong>Linens on tables? </strong>{{party.linensOnTables}}</p>
+        <p><strong>Special Instructions: </strong>{{party.special_instructions}}</p>
+        <p><strong>Admin info: </strong></p>
+        <div class="party-admin-info">
+          <p><strong>Deposit amount: </strong>{{party.admin_info.deposit_amt}}</p>
+          <p><strong>Yelp? </strong>{{party.admin_info.yelp}}</p>
+          <p><strong>Party size confirmed? </strong><span ng-if="party.admin_info.party_size_confirmation.val">comfirmed on {{party.admin_info.party_size_confirmation.date}} by {{party.admin_info.party_size_confirmation.admin}}</span><span ng-if="!party.admin_info.party_size_confirmation.val">unconfirmed</span></p>
+          <p><strong>Food selections confirmed? </strong><span ng-if="party.admin_info.food_selections_confirmation.val">confirmed on {{party.admin_info.food_selections_confirmation.date}} by {{party.admin_info.food_selections_confirmation.admin}}</span><span ng-if="!party.admin_info.food_selections_confirmation.val">unconfirmed</span></p>
+        </div>
+      </div>
+      <div id="party-edit-{{party._id}}" class="party-info-ext" ng-show="party.status == 'edited'">
+        <p><strong>Booked by: </strong><input type="text" placeholder="Manager name" ng-model="party.booked_by"/></p>
+        <p><strong>Booking Date: </strong><input id="booking_date-{{party._id}}" type="date"/></p>
+        <p><strong>Host name: </strong><input type="text" placeholder="Customer name" ng-model="party.host_name"/></p>
+        <p><strong>Host phone number: </strong><input type="tel" placeholder="e.g. (847) 720-4466" ng-model="party.host_phone"/></p>
+        <p><strong>Host email: </strong><input type="email" placeholder="e.g. jim@scrantonpapercompany.com" ng-model="party.host_email"/></p>
+        <p><strong>Event info: </strong></p>
+        <div class="party-event-info">
+          <p><strong>Description: </strong><input type="text" ng-model="party.event_info.description"/></p>
+          <p><strong>Date: </strong><input type="datetime-local" id="party-date-{{party._id}}"/></p>
+          <p><strong>Location: </strong><input type="text" placeholder="e.g. Back dining" ng-model="party.event_info.location"/></p>
+          <p><strong>Number of guests: </strong><span class="party-guests-adults"><input type="number" ng-model="party.event_info.num_guests.adults"/></span> <span class="party-guests-kids"><input type="number" ng-model="party.event_info.num_guests.kids"/></span></p>
+        </div>
+        <p><strong>Drink info: </strong></p>
+        <div class="party-drink-info">
+          <p><strong>Package Type: </strong><input type="text" ng-model="party.drinks.package_type"/></p>
+          <p><strong>Price per person: </strong><input type="number" ng-model="party.drinks.unit_price"/></p>
+          <p><strong>Method of payment: </strong><input type="text" placeholder="i.e. individual or host" ng-model="party.drinks.payment_method"/></p>
+          <p><strong>Other: </strong><input type="text" ng-model="party.drinks.other"/></p>
+        </div>
+        <p><strong>Food info: </strong></p>
+        <div class="party-food-info">
+          <p><strong>Package type: </strong><input type="text" ng-model="party.food.package_type"/></p>
+          <p><strong>Serving type: </strong><input type="text" ng-model="party.food.serving_type"/></p>
+          <p><strong>Price per person: </strong><span class="party-guests-adults"><input type="number" ng-model="party.food.price.adult"/></span> <span class="party-guests-kids"><input type="number" ng-model="party.food.price.kid"/></span></p>
+          <p><strong>Method of payment: </strong><input type="text" placeholder="i.e. individual or host" ng-model="party.food.payment"/></p>
+          <p><strong>Food selections (comma separated): </strong><input type="text" ng-model="party.food.food_selections"/></p>
+        </div>
+        <p><strong>Linens on tables? </strong><input type="checkbox" ng-model="party.linensOnTable"/></p>
+        <p><strong>Special Instructions: </strong><input type="text" ng-model="party.specialInstructions"/></p>
+        <p><strong>Admin info: </strong></p>
+        <div class="party-admin-info">
+          <p><strong>Deposit amount: </strong><input type="number" ng-model="party.admin_info.deposit_amt"/></p>
+          <p><strong>Yelp? </strong><input type="checkbox" ng-model="party.admin_info.yelp"/></p>
+          <p><strong>Party size confirmed? </strong><input type="checkbox" ng-model="party.admin_info.party_size_confirmation.val"/></p>
+          <p><strong>Food selections confirmed? </strong><input type="checkbox" ng-model="party.admin_info.food_selections_confirmation.val"/></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
