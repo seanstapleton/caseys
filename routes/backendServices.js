@@ -6,11 +6,14 @@ module.exports = function(db, passport) {
     var nodemailer      = require('nodemailer');
     var hoursSchema     = require('../models/hours.js');
     var menuSchema      = require('../models/menu.js');
+    var itemSchema      = require('../models/items.js');
     var eventsSchema    = require('../models/events.js');
     var photosSchema    = require('../models/photos.js');
     var specialsSchema  = require('../models/specials.js');
     var messageSchema   = require('../models/message.js');
     var applicantSchema   = require('../models/applicant.js');
+    var editSchema      = require('../models/edit.js');
+    var partySchema     = require('../models/party.js');
     var flash           = require('connect-flash');
     var https           = require('https');
     var Dropbox         = require('dropbox');
@@ -64,6 +67,20 @@ module.exports = function(db, passport) {
       });
     });
 
+    var logEdit = function(author,desc,edited_items) {
+      author = author || "unknown";
+      edited_items = edited_items || [];
+      var edit = new editSchema({
+        author: author.name || "none",
+        author_id: author._id,
+        description: desc,
+        date_time: new Date(),
+        edited_items: edited_items
+      });
+      edit.save();
+      console.log("------- edit logged --------");
+    }
+
     router.get('/getFBID', function(req, res) {
       return res.send(process.env.fbid);
     });
@@ -75,6 +92,16 @@ module.exports = function(db, passport) {
           if (err) return next(err);
           if (!newUser) return res.send({success: false});
         })(req,res,next);
+    });
+
+    router.get('/getMenus', function(req, res) {
+      menuSchema.find({}, {}, {sort: {"start": -1}}, function(err, events) {
+            if (events) {
+              res.send(events);
+            } else {
+              res.end();
+            }
+        });
     });
 
     router.post('/login', function(req, res, next) {
@@ -153,17 +180,61 @@ module.exports = function(db, passport) {
           featured: req.body.featured
       });
       event.save(function(err, ev) {
-        if (err) return res.send({success: false, err: err});
-        else return res.send({success: true});
+        if (err) res.send({success: false, err: err});
+        else res.send({success: true});
       });
-      console.log(req.body);
+      var message = (req.body.title == "Untitled (New)") ? "added a new event" : "duplicated an event";
+      logEdit(req.user,message,[req.body]);
     });
 
     router.post('/editEvent', function(req, res, next) {
       eventsSchema.findOneAndUpdate({_id: req.body._id}, req.body, {upsert: true}, function(err, doc) {
           if (err) return res.send({success: false, err: err});
           else return res.send({success: true});
+          logEdit(req.user,"edited an event", [req.body]);
       });
+    });
+
+    router.post('/addParty', function(req, res, next) {
+      var party = new partySchema({
+          title: req.body.title
+      });
+      party.save(function(err, ev) {
+        if (err) res.send({success: false, err: err});
+        else res.send({success: true});
+      });
+      logEdit(req.user,"added a new party",[req.body]);
+    });
+
+    router.post('/editParty', function(req, res, next) {
+      partySchema.findOneAndUpdate({_id: req.body._id}, req.body, {upsert: true}, function(err, doc) {
+          if (err) res.send({success: false, err: err});
+          else res.send({success: true});
+          logEdit(req.user,"edited a party", [req.body]);
+      });
+    });
+
+    router.post('/editItem', function(req, res, next) {
+      itemSchema.findOneAndUpdate({_id: req.body._id}, req.body, {upsert: true, new: true}, function(err, doc) {
+          if (err) res.send({success: false, err: err});
+          else res.send({success: true, item: doc});
+          logEdit(req.user,"edited a menu item", [req.body]);
+      });
+    });
+
+    router.post('/addItem', function(req, res, next) {
+      var item = new itemSchema({
+          title: req.body.title,
+          desc: req.body.desc,
+          price: req.body.price,
+          tags: req.body.tags,
+          availabilities: req.body.availabilities
+      });
+      item.save(function(err, item) {
+        if (err) res.send({success: false, err: err});
+        else res.send({success: true, item: item});
+      });
+      logEdit(req.user,"added a new menu item", [item]);
     });
 
     router.post('/deleteEvent', function(req, res, next) {
@@ -171,6 +242,7 @@ module.exports = function(db, passport) {
       eventsSchema.find({_id: req.body._id}).remove(function(err, data) {
         if (err) {console.log(err); return res.send({success: false, err: err});}
         else return res.send({success: true});
+        logEdit(req.user,"deleted an event", [req.body]);
       });
     });
 
@@ -178,6 +250,38 @@ module.exports = function(db, passport) {
       eventsSchema.find({featured: true},{},{sort: {"start": -1}}, function(err, events) {
         if (err) {console.log(err); return res.send({success: false, err: err});}
         else return res.send({success: true, events: events});
+      });
+    });
+
+    router.post('/deleteParty', function(req, res, next) {
+      partySchema.find({_id: req.body._id}).remove(function(err, data) {
+        if (err) {
+          console.log(err);
+          res.send({success: false, err: err});
+        }
+        else res.send({success: true});
+        logEdit(req.user, "deleted a party", [req.body]);
+      });
+    });
+
+    router.post('/deleteMenuItem', function(req, res, next) {
+      itemSchema.find({_id: req.body._id}).remove(function(err, data) {
+        if (err) {
+          console.log(err);
+          res.send({success: false, err: err});
+        }
+        else res.send({success: true, item: {_id: req.body._id}});
+        logEdit(req.user,"deleted a menu item", [req.body]);
+      });
+    });
+
+    router.get('/deleteWithTag/:tag', function(req, res, next) {
+      itemSchema.find({tags: [req.params.tag]}).remove(function(err, data) {
+        if (err) {
+          console.log(err);
+          res.send({success: false, err: err});
+        }
+        else res.send({success: true});
       });
     });
 
@@ -278,11 +382,31 @@ module.exports = function(db, passport) {
       });
     });
 
-    // /* GET logout page */
-    // router.get('/logout', function(req, res, next) {
-    //   req.logout();
-    //   res.redirect('/');
-    // });
+    router.get("/getUser", function(req, res) {
+      if (req.user) res.send({"success": true, user: {name: req.user.name, admin: req.user.admin}});
+      else res.send({"success": false, "err": "500"});
+    });
+
+    router.get('/getLogs', function(req, res) {
+      editSchema.find({},{}, function(err, logs) {
+        if (err) console.log(err);
+        else res.send(logs);
+      });
+    });
+
+    router.get('/getItems', function(req, res) {
+      itemSchema.find({},{}, function(err, items) {
+        if (err) console.log(err);
+        else res.send(items);
+      });
+    });
+
+    router.get('/getParties', function(req, res) {
+      partySchema.find({},{}, function(err, menus) {
+        if (err) console.log(err);
+        else res.send(menus);
+      });
+    });
 
     return router;
 }

@@ -1,0 +1,8 @@
+<div ng-init="loadLogs()">
+  <div ng-repeat="log in pageData.logs">
+    <p><strong>Author: </strong>{{log.author}} <span class="author-id">(ID: {{log.author_id}})</span></p>
+    <p><strong>Description: </strong>{{log.description}}</p>
+    <p><strong>Date: </strong>{{log.date_time}}</p>
+    <p>Objects: {{log.edited_items}}</p>
+  </div>
+</div>

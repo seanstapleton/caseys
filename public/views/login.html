@@ -1,28 +1,14 @@
 <div class='container'>
-    <div class="panel panel-default col-md-4 col-md-offset-4">
-        <div class="panel-body">
-            <h3 class="card-title text-center">Login</h3><img src="https://labs.xda-developers.com/static/img/default-avatar.png" class="img-circle center-block"/><br/>
-            <div ng-if="'true'" style='color:red'>
-                <p ng-if='loginStatus.unknownEmail'>Sorry, we don't recognize this email. Sign-up <a href='#/signup'>here</a>.</p>
-                <p ng-if='loginStatus.invalidLogin'>The email and password you entered don't match.</p>
-            </div>
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel-body login-panel">
+            <img src="/img/logos/caseys.png" class="img-circle center-block img-small"/><br/>
             <form novalidate name='loginForm' ng-submit='login();'>
                 <div class="form-group">
                     <input type="email" name="email" ng-model='email' ng-model-options="{ updateOn: 'default blur' }" placeholder="email" required class="form-control"/>
-                    <!-- <ng-messages ng-if='loginForm.$submitted || loginForm.email.$touched' for="loginForm.email.$error" class="help-block">
-                        <ng-message when='required'>Your email is required.</ng-message>
-                        <ng-message when='email'>Invalid email</ng-message>
-                    </ng-messages> -->
-                </div>
-                <div class='form-group'>
                     <input type="password" name="password" ng-model='password' ng-model-options="{ updateOn: 'default blur' }" placeholder="password" required class="form-control"/>
-                    <!-- <ng-messages ng-if='loginForm.$submitted || loginForm.password.$touched' for='loginForm.password.$error' class='help-block'>
-                        <ng-message when='required'>Your password is required.</ng-message>
-                    </ng-messages> -->
                 </div>
                     <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-block btn-primary">Login</button>
             </form>
-            <p class="text-center"><a href="/admin/register">Register an account</a></p>
         </div>
     </div>
 </div>

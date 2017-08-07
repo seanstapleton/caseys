@@ -3,8 +3,9 @@
     <head>
         <title>Casey's New Buffalo</title>
         <base href='/admin/'>
+        <meta name="viewport" content="width=device-width" />
         <link rel='stylesheet' type="text/css" href='/lib/bootstrap/css/bootstrap.min.css'>
-        <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat:100,200i,400|Open+Sans|Secular+One|Suez+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat:100,200i,400|Open+Sans:300,400|Secular+One|Suez+One" rel="stylesheet">
         <link href='/lib/animate.css/animate.min.css' rel='stylesheet'>
         <link href='/lib/aos/dist/aos.css' rel='stylesheet'>
         <link href='/css/admin.css' rel='stylesheet'>
@@ -15,7 +16,7 @@
     </head>
     <body ng-app="caseysnewbuffalo" ng-controller="HomeController">
 
-      <nav class="navbar navbar-default" style="background-color: #337ab7">
+      <nav class="navbar navbar-default" style="background-color: #337ab7" ng-if="pageData.current != 'login'">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#admin-nav" aria-expanded="false">
@@ -29,16 +30,16 @@
 
           <div class="collapse navbar-collapse" id="admin-nav">
             <ul class="nav navbar-nav navbar-right" ng-if="userData.isLoggedIn">
-              <li ng-click="pageData.current = 'events'" class="active"><a href="#" style="color: #fff">Events</a></li>
-              <li ng-click="pageData.current = 'menus'"><a href="#" style="color: #fff">Menus</a></li>
-              <li ng-click="changePage('photos')"><a href="#" style="color: #fff">Photos</a></li>
+              <li><a href="events" style="color: #fff">Events</a></li>
+              <li><a href="menus" style="color: #fff">Menus</a></li>
+              <li><a href="parties" style="color: #fff">Parties</a></li>
               <li ng-click="logout()"><a href="#" style="color: #fff"><b>Logout</b></a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <div id="primary" class='container'>
+      <div id="primary" class='container' ng-class="{'login-container': pageData.current == 'login'}">
           <div ng-view></div>
       </div>
 
@@ -60,9 +61,25 @@
                     templateUrl: '/views/login.html',
                     controller: 'LoginController'
                 })
-                .when('/dash', {
-                    templateUrl: '/views/dashboard.html',
+                .when('/events', {
+                    templateUrl: '/views/events.html',
                     controller: 'DashController'
+                })
+                .when('/menus', {
+                  templateUrl: '/views/menus.html',
+                  controller: 'DashController'
+                })
+                .when('/photos', {
+                    templateUrl: '/views/photos.html',
+                    controller: 'DashController'
+                })
+                .when('/parties', {
+                    templateUrl: '/views/parties.html',
+                    controller: 'DashController'
+                })
+                .when('/logs', {
+                  templateUrl: '/views/logs.html',
+                  controller: 'DashController'
                 })
                 .otherwise({
                   redirectTo: '/'

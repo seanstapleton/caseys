@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('theharpandfiddle');
+    var app = angular.module('caseysnewbuffalo');
 
     app.controller('RegistrationController', ['$scope', '$http', function($scope, $http) {
 
