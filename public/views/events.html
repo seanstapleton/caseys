@@ -27,7 +27,7 @@
       <div class="event-edit" ng-if="userData.user.admin" id="edit-{{event._id}}" data-status="saved" ng-click="editEvent(event)"></div>
       <div class="event-delete" ng-if="userData.user.admin" ng-click="deleteEvent(event)"></div>
       <div class="event-dup" ng-if="userData.user.admin" ng-click="duplicateEvent(event)"></div>
-      <div class="event-img" style="background-image: url('{{event.img}}')" ng-mouseover="if (userData.user.admin) event.editImg = true" ng-mouseout="event.editImg = false">
+	  <div class="event-img" style="background-image: url('{{event.img}}')" ng-mouseover="enableImgEdit(event)" ng-mouseleave="disableImgEdit(event)">
         <div class="event-img-overlay" ng-click="editImage(event)" ng-if="event.editImg" id="overlay-{{event._id}}"><img src="/img/icons/update-image.svg"/></div>
       </div>
       <div class="event-info" ng-show="event.status != 'edited'">

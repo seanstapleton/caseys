@@ -146,6 +146,14 @@
       }
     }
 
+	$scope.enableImgEdit = function(ev) {
+      if ($scope.userData.user.admin && !ev.editImg) ev.editImg = true;
+    }
+
+    $scope.disableImgEdit = function(ev) {
+      if (ev.editImg) ev.editImg = false;
+    }
+
      $scope.checkStatus();
 
       $scope.loadEvents = function() {
