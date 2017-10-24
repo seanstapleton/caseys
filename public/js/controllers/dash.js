@@ -24,7 +24,8 @@
     }
 
     $scope.updatePreview = function() {
-      $("#previewWindow").css("background-image", "url("+$scope.linkDrivePhoto($scope.imageEditData.current)+")")
+      $scope.imageEditData.current = $scope.linkDrivePhoto($scope.imageEditData.current);
+      $("#previewWindow").css("background-image", "url("+$scope.imageEditData.current+")")
     }
 
     $scope.toggleActive = function(party) {
