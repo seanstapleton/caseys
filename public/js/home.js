@@ -267,7 +267,7 @@
     $("#close").click(function() {
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
-      var panels = ["#tour-360","#food", "#beer", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#job-form", "#events-pu"];
+      var panels = ["#tour-360","#food", "#beer", "#brunch", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#job-form", "#events-pu"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
         p.removeClass("show");
@@ -360,6 +360,17 @@
       if ($("#food").find("canvas").length == 0) {
         var currentMenu = "/img/menus/dinner.pdf";
         displayMenu(currentMenu,"dinnerMenu","#food");
+      }
+    });
+
+    $(".brunchLink").click(function() {
+      $("#overlay").toggleClass("show");
+      $("#brunch").toggleClass("show");
+      $("body").toggleClass("noscroll");
+      $(".spinner").toggleClass("show");
+      if ($("#brunch").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/brunch.pdf";
+        displayMenu(currentMenu,"brunchMenu","#brunch");
       }
     });
 

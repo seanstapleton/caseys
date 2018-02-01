@@ -384,10 +384,10 @@ div.bar:not(:first-child) {
 #events-pu {
   display: none;
 }
-#food, #events-pu, #contact-form, #beer, #cocktails, #wine, #carryout, #desserts {
+#food, #brunch, #events-pu, #contact-form, #beer, #cocktails, #wine, #carryout, #desserts {
   display: none;
 }
-#food canvas, #beer canvas, #cocktails canvas, #wine canvas, #desserts canvas, #carryout canvas {
+#food canvas, #brunch canvas, #beer canvas, #cocktails canvas, #wine canvas, #desserts canvas, #carryout canvas {
   width: 95%;
   margin: 0 auto;
 }
@@ -537,6 +537,9 @@ div.bar:not(:first-child) {
   background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/op/guiness.jpg");
 }
 #cocktailsCard {
+  background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/op/beautifulday.jpg");
+}
+#brunchCard {
   background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/img/backgrounds/op/beautifulday.jpg");
 }
 .soc-box {
@@ -723,8 +726,21 @@ div.bar:not(:first-child) {
 .food-block h5 {
   line-height: 40vh;
 }
-.beer-block {
+.vertical-block {
   width: 31.25%;
+  height: 40vh;
+  float: left;
+}
+.brunch-block {
+  width: 100%;
+  height: 25vh;
+  background-image: url("/img/backgrounds/brunch.jpg");
+}
+.brunch-block h5 {
+  line-height: 25vh;
+}
+.beer-block {
+  width: 100%;
   height: 40vh;
   background-image: url("/img/backgrounds/op/beer.jpg");
 }
@@ -741,11 +757,11 @@ div.bar:not(:first-child) {
 }
 .mobile-item.wine-block {
   width: 100%;
-  height: 50vh;
+  height: 25vh;
   background-image: url("/img/backgrounds/op/wine.jpg");
 }
 .mobile-item.wine-block h5 {
-  line-height: 50vh;
+  line-height: 25vh;
 }
 .mobile-item.dessert-block {
   width: 100%;

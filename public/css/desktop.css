@@ -266,9 +266,18 @@
   .food-block h5 {
     line-height: 80vh;
   }
+  .brunch-block {
+    width: 100%;
+    height: 20vh;
+    background-image: url("/img/backgrounds/brunch.jpg");
+    background-size: cover;
+  }
+  .brunch-block h5 {
+    line-height: 20vh;
+  }
   .beer-block {
-    width: 31.25%;
-    height: 80vh;
+    width: 100%;
+    height: 60vh;
     background-image: url("/img/backgrounds/op/beer.jpg");
   }
   .beer-block h5 {
@@ -329,7 +338,7 @@
     background-color: rgba(240,240,240,1);
     min-height: 50vh;
   }
-  #food canvas, #wine canvas, #desserts canvas, #beer canvas, #cocktails canvas, #carryout canvas {
+  #food canvas, #brunch canvas, #wine canvas, #desserts canvas, #beer canvas, #cocktails canvas, #carryout canvas {
     width: 70%;
     margin: 0 auto;
   }
