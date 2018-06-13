@@ -17,6 +17,27 @@ p, h1, h2, h3, h4, h5, h6, td, a, li {
   display: block;
   margin: auto;
 }
+.text-ad {
+  background-color: #ACDBFD;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #89CDFD;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  width: 50%;
+  animation-duration: 2s;
+  animation-delay: 2s;
+}
+.text-ad p {
+  color: #555;
+  margin: 0;
+}
+.text-ad-close {
+  padding-right: 5px;
+  font-family: 'Encode Sans Semi Expanded', sans-serif;
+  cursor: pointer;
+}
 #show-360 {
   position: fixed;
   height: 20vh;

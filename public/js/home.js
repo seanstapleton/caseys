@@ -47,6 +47,10 @@
       $(this).removeClass("show");
     });
 
+    $(".text-ad-close").click(function() {
+      $(".text-ad").css("display", "none");
+    });
+
     $("#show-360").click(function() {
       $("#overlay").toggleClass("show");
       $("#tour-360").toggleClass("show");
