@@ -18,16 +18,19 @@ p, h1, h2, h3, h4, h5, h6, td, a, li {
   margin: auto;
 }
 .text-ad {
-  background-color: #ACDBFD;
+  /* background-color: #ACDBFD;
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid #89CDFD;
+  border: 2px solid #89CDFD; */
   position: absolute;
-  bottom: 15px;
-  left: 15px;
-  width: 50%;
+  bottom: 20px;
+  left: 20px;
+  width: 40%;
   animation-duration: 2s;
   animation-delay: 2s;
+}
+.text-ad img {
+  width: 100%;
 }
 .text-ad p {
   color: #555;
