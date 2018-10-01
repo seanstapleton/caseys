@@ -271,7 +271,7 @@
     $("#close").click(function() {
       $("#overlay").toggleClass("show");
       $("body").toggleClass("noscroll");
-      var panels = ["#tour-360","#food", "#beer", "#brunch", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#job-form", "#events-pu"];
+      var panels = ["#tour-360","#food", "#beer", "#brunch", "#cocktails", "#carryout", "#desserts", "#wine", "#contact-form", "#job-form", "#events-pu", "#tendollarlunch"];
       for (var i = 0; i < panels.length; i++) {
         var p = $(panels[i]);
         p.removeClass("show");
@@ -427,9 +427,20 @@
       $("#desserts").toggleClass("show");
       $("body").toggleClass("noscroll");
       $(".spinner").toggleClass("show");
-      if ($("#drinks").find("canvas").length == 0) {
+      if ($("#desserts").find("canvas").length == 0) {
         var currentMenu = "/img/menus/desserts.pdf";
         displayMenu(currentMenu,"dessertsMenu","#desserts");
+      }
+    });
+
+    $(".tendollarlunchLink").click(function() {
+      $("#overlay").toggleClass("show");
+      $("#tendollarlunch").toggleClass("show");
+      $("body").toggleClass("noscroll");
+      $(".spinner").toggleClass("show");
+      if ($("#tendollarlunch").find("canvas").length == 0) {
+        var currentMenu = "/img/menus/tendollarlunch.pdf";
+        displayMenu(currentMenu,"tendollarlunchMenu","#tendollarlunch");
       }
     });
 

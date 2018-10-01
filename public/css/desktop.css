@@ -297,7 +297,7 @@
     background-image: url("/img/backgrounds/op/beer.jpg");
   }
   .beer-block h5 {
-    line-height: 80vh;
+    line-height: 60vh;
   }
   .carryout-block {
     width: 100%;
@@ -315,12 +315,17 @@
   .wine-block h5 {
     line-height: 70vh;
   }
+  .tendollarlunch-block {
+    width: 31%;
+    height: 20vh;
+    background-image: url("/img/backgrounds/op/close-up-salmon.jpg");
+  }
   .dessert-block {
-    width: 62.5%;
+    width: 31.5%;
     height: 20vh;
     background-image: url("/img/backgrounds/op/dessert.jpg");
   }
-  .dessert-block h5 {
+  .dessert-block h5, .tendollarlunch-block h5 {
     line-height: 20vh;
   }
   .cocktails-block {
@@ -354,7 +359,7 @@
     background-color: rgba(240,240,240,1);
     min-height: 50vh;
   }
-  #food canvas, #brunch canvas, #wine canvas, #desserts canvas, #beer canvas, #cocktails canvas, #carryout canvas {
+  #food canvas, #brunch canvas, #wine canvas, #desserts canvas, #beer canvas, #cocktails canvas, #carryout canvas, #tendollarlunch canvas {
     width: 70%;
     margin: 0 auto;
   }
