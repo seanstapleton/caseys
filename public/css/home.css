@@ -781,11 +781,11 @@ div.bar:not(:first-child) {
 }
 .mobile-item.wine-block {
   width: 100%;
-  height: 25vh;
+  height: 50vh;
   background-image: url("/img/backgrounds/op/wine.jpg");
 }
 .mobile-item.wine-block h5 {
-  line-height: 25vh;
+  line-height: 50vh;
 }
 .mobile-item.dessert-block {
   width: 100%;

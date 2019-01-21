@@ -64,9 +64,12 @@
       $("body").toggleClass("noscroll");
 
       $.get('/backendServices/getEvents', function(data) {
-        for (var i = 0; i < data.length; i++) {
-          data[i].start = new Date(data[i].start);
-          data[i].end = new Date(data[i].end);
+        const response = data.events;
+        for (var i = 0; i < response.length; i++) {
+          response[i].start = new Date(response[i].start_time);
+          response[i].end = new Date(response[i].end_time);
+          delete response[i].start_time;
+          delete response[i].end_time;
         }
         $('#events-calendar').fullCalendar({
               theme: true,
@@ -78,15 +81,15 @@
               editable: false,
               weekMode: 'liquid',
               url: '#',
-              events: data,
+              events: response,
               eventRender: function(event, element) {
-                if (event.title.toLowerCase().indexOf("notre dame") >= 0) {
+                if (event.name.toLowerCase().indexOf("notre dame") >= 0) {
                   element.css("background", "#3EA632");
                 }
                 if (event.background) {
                   element.css("background", event.background);
                 }
-                element.text(event.title);
+                element.text(event.name);
                 element.tooltip({title: event.description});
                 if (event.image) {
                   var image = $('<img>').attr("src",event.image);
@@ -186,17 +189,18 @@
       window.open($(this).attr("href"), "_blank");
     });
 
-    $.get('/backendServices/featuredEvents', function(data) {
+    $.get('/backendServices/upcomingEvents', function(data) {
       var evs = data.events;
       var length = (evs.length > 3) ? 4 : evs.length;
       for (var i = length-1; i >= 0; i--) {
-        var date = moment(evs[i].start).format("MMMM Do @ h:mm a");
-        var anchor = $('<a href='+evs[i].url+'></a>');
+        var date = moment(evs[i].start_time).format("MMMM Do @ h:mm a");
+        const link = `https://facebook.com/events/${evs[i].id}`;
+        var anchor = $('<a href='+link+'></a>');
         l = i;
         if (isMobile) l = 7;
         var div = $("<div class='ev-box' data-aos='fade-left' data-aos-delay="+(1400-l*200)+" data-aos-anchor-placement='center-bottom'></div>");
-        if (evs[i].img) div.css("background-image", "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(" + evs[i].img + ")");
-        div.append($("<h4></h4>").text(evs[i].title), $("<p></p>").text(date));
+        if (evs[i].image) div.css("background-image", "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(" + evs[i].image + ")");
+        div.append($("<h4></h4>").text(evs[i].name), $("<p></p>").text(date));
         anchor.append(div);
         if (i > 2) anchor.addClass("desktop-item");
         $("#featured-evs").append(anchor);

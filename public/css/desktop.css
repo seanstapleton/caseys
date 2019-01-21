@@ -293,11 +293,11 @@
   }
   .beer-block {
     width: 100%;
-    height: 60vh;
+    height: 80vh;
     background-image: url("/img/backgrounds/op/beer.jpg");
   }
   .beer-block h5 {
-    line-height: 60vh;
+    line-height: 80vh;
   }
   .carryout-block {
     width: 100%;

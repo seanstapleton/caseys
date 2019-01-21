@@ -1,42 +1,44 @@
 module.exports = function(db, passport) {
-    var express         = require('express');
-    var router          = express.Router();
-    var db              = require('../db');
-    var bodyParser      = require('body-parser');
-    var nodemailer      = require('nodemailer');
-    var hoursSchema     = require('../models/hours.js');
-    var menuSchema      = require('../models/menu.js');
-    var itemSchema      = require('../models/items.js');
-    var eventsSchema    = require('../models/events.js');
-    var photosSchema    = require('../models/photos.js');
-    var specialsSchema  = require('../models/specials.js');
-    var messageSchema   = require('../models/message.js');
-    var applicantSchema   = require('../models/applicant.js');
-    var editSchema      = require('../models/edit.js');
-    var partySchema     = require('../models/party.js');
-    var flash           = require('connect-flash');
-    var https           = require('https');
-    var Dropbox         = require('dropbox');
-    var validator       = require('validator');
-    var path            = require('path');
-    var mg              = require('nodemailer-mailgun-transport');
-    var Dropbox         = require('dropbox');
-    var dbx             = new Dropbox({ accessToken: process.env.db_access });
+    const express         = require('express');
+    const router          = express.Router();
+    const bodyParser      = require('body-parser');
+    const nodemailer      = require('nodemailer');
+    const hoursSchema     = require('../models/hours.js');
+    const menuSchema      = require('../models/menu.js');
+    const itemSchema      = require('../models/items.js');
+    const eventsSchema    = require('../models/events.js');
+    const photosSchema    = require('../models/photos.js');
+    const specialsSchema  = require('../models/specials.js');
+    const messageSchema   = require('../models/message.js');
+    const applicantSchema = require('../models/applicant.js');
+    const editSchema      = require('../models/edit.js');
+    const partySchema     = require('../models/party.js');
+    const flash           = require('connect-flash');
+    const https           = require('https');
+    const Dropbox         = require('dropbox');
+    const validator       = require('validator');
+    const path            = require('path');
+    const mg              = require('nodemailer-mailgun-transport');
+    const dbx             = new Dropbox({ accessToken: process.env.db_access });
+    const axios = require('axios');
+    const _ = require('lodash');
+
+    const fbAccessToken = process.env.page_access;
 
     // dbx.filesListFolder({path: '/photo_gallery'})
     //   .then(function(data) {
-    //     var promises = [];
-    //     for (var i = 0; i < data.entries.length; i++) {
-    //       var pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
+    //     const promises = [];
+    //     for (const i = 0; i < data.entries.length; i++) {
+    //       const pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
     //       promises.push(pr);
     //     }
     //     console.log("yo");
     //     Promise.all(promises)
     //       .then(function(values) {
     //         console.log("ay");
-    //         for (var j = 0; j < values.length; j++) {
-    //             var idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
-    //             var photo = new photosSchema({
+    //         for (const j = 0; j < values.length; j++) {
+    //             const idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
+    //             const photo = new photosSchema({
     //               src: "https://dl.dropboxusercontent" + values[j][0].url.substring(idx[0]),
     //               thumbnail: "https://dl.dropboxusercontent" + values[j][1].url.substring(idx[1])
     //             });
@@ -67,10 +69,10 @@ module.exports = function(db, passport) {
       });
     });
 
-    var logEdit = function(author,desc,edited_items) {
+    const logEdit = function(author,desc,edited_items) {
       author = author || "unknown";
       edited_items = edited_items || [];
-      var edit = new editSchema({
+      const edit = new editSchema({
         author: author.name || "none",
         author_id: author._id,
         description: desc,
@@ -85,8 +87,8 @@ module.exports = function(db, passport) {
       return res.send(process.env.fbid);
     });
 
-    var LocalStrategy = require('passport-local').Strategy;
-    var register = require('../passport/config.js')(passport);
+    const LocalStrategy = require('passport-local').Strategy;
+    const register = require('../passport/config.js')(passport);
     router.post('/register', function(req, res, next) {
         passport.authenticate('register', function(err, newUser, info) {
           if (err) return next(err);
@@ -117,7 +119,7 @@ module.exports = function(db, passport) {
       })(req, res, next);
     });
 
-    var isLoggedIn = function(req, res, next) {
+    const isLoggedIn = function(req, res, next) {
       if (req.isAuthenticated()) {
         console.log("logged in");
         return res.send({loggedIn: true});
@@ -126,31 +128,64 @@ module.exports = function(db, passport) {
       }
     }
 
-    router.get('/getEvents', function(req, res) {
-      eventsSchema.find({}, {}, {sort: {"start": -1}}, function(err, events) {
-            if (events) {
-              res.send(events);
-            } else {
-              res.end();
-            }
+    router.get('/getEvents', async  (req, res) => {
+      const prefix = 'https://graph.facebook.com';
+      const pageName = 'parkridgebar';
+      const endpoint = `${prefix}/${pageName}/events?fields=name,start_time&access_token=${fbAccessToken}`;
+      try {
+        const response = await axios.get(endpoint);
+        const events = _.orderBy(response.data.data, ['start_time'], ['desc']);
+        const eventsWithUrl = _.map(events, e => {
+          e.url = `https://facebook.com/events/${e.id}`;
+          return e;
         });
+        return res.send({ success: true, events: eventsWithUrl });
+      } catch (e) {
+        console.log(e);
+        return res.send({ success: false, err: e });
+      }
+    });
+
+    router.get('/upcomingEvents', async  (req, res) => {
+      const prefix = 'https://graph.facebook.com';
+      const pageName = 'parkridgebar';
+      const endpoint = `${prefix}/${pageName}/events?fields=name,start_time,cover&access_token=${fbAccessToken}`;
+      try {
+        const response = await axios.get(endpoint);
+        const data = _.map(response.data.data, (o) => {
+          o.image = o.cover.source;
+          delete o.cover;
+          return o;
+        });
+        const events = _.orderBy(response.data.data, ['start_time'], ['desc']);
+        const futureEvents = _.reject(events, (e) => {
+          const today = new Date();
+          today.setHours(0,0,0,0);
+          return new Date(e.start_time).getTime() <= today.getTime();
+        });
+        const fiveNextEvents = futureEvents.slice(Math.max(futureEvents.length - 5, 0));
+        return res.send({ success: true, events: fiveNextEvents });
+      } catch (e) {
+        console.log(e);
+        return res.send({ success: false, err: e.message });
+      }
     });
 
     router.get('/getPhotos', function(req, res) {
       // dbx.filesListFolder({path: '/photo_gallery'})
       //   .then(function(data) {
-      //     var promises = [];
-      //     for (var i = 0; i < data.entries.length; i++) {
-      //       var pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
+      //     const promises = [];
+      //     for (const i = 0; i < data.entries.length; i++) {
+      //       const pr = Promise.all([dbx.sharingCreateSharedLink({path: data.entries[i].path_lower}),dbx.sharingCreateSharedLink({path: "/thumbnails/" + data.entries[i].name})]);
       //       promises.push(pr);
       //     }
       //     console.log("yo");
       //     Promise.all(promises)
       //       .then(function(values) {
       //         console.log("ay");
-      //         for (var j = 0; j < values.length; j++) {
-      //             var idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
-      //             var photo = new photosSchema({
+      //         for (const j = 0; j < values.length; j++) {
+      //             const idx = [values[j][0].url.indexOf(".com"),values[j][1].url.indexOf(".com")];
+      //             const photo = new photosSchema({
       //               src: "https://dl.dropboxusercontent" + values[j][0].url.substring(idx[0]),
       //               thumbnail: "https://dl.dropboxusercontent" + values[j][1].url.substring(idx[1])
       //             });
@@ -169,7 +204,7 @@ module.exports = function(db, passport) {
     });
 
     router.post('/addEvent', function(req, res, next) {
-      var event = new eventsSchema({
+      const event = new eventsSchema({
           title: req.body.title,
           start: req.body.start,
           end: req.body.end,
@@ -183,7 +218,7 @@ module.exports = function(db, passport) {
         if (err) res.send({success: false, err: err});
         else res.send({success: true});
       });
-      var message = (req.body.title == "Untitled (New)") ? "added a new event" : "duplicated an event";
+      const message = (req.body.title == "Untitled (New)") ? "added a new event" : "duplicated an event";
       logEdit(req.user,message,[req.body]);
     });
 
@@ -196,7 +231,7 @@ module.exports = function(db, passport) {
     });
 
     router.post('/addParty', function(req, res, next) {
-      var party = new partySchema({
+      const party = new partySchema({
           title: req.body.title
       });
       party.save(function(err, ev) {
@@ -223,7 +258,7 @@ module.exports = function(db, passport) {
     });
 
     router.post('/addItem', function(req, res, next) {
-      var item = new itemSchema({
+      const item = new itemSchema({
           title: req.body.title,
           desc: req.body.desc,
           price: req.body.price,
@@ -243,13 +278,6 @@ module.exports = function(db, passport) {
         if (err) {console.log(err); return res.send({success: false, err: err});}
         else return res.send({success: true});
         logEdit(req.user,"deleted an event", [req.body]);
-      });
-    });
-
-    router.get('/featuredEvents', function(req, res) {
-      eventsSchema.find({featured: true},{},{sort: {"start": -1}}, function(err, events) {
-        if (err) {console.log(err); return res.send({success: false, err: err});}
-        else return res.send({success: true, events: events});
       });
     });
 
@@ -295,17 +323,17 @@ module.exports = function(db, passport) {
     });
 
     router.post('/sendMessage', function(req, res, next) {
-      var auth = {
+      const auth = {
         auth: {
           api_key: process.env.api_key,
           domain: process.env.domain
         }
       }
-      var data = req.body;
+      const data = req.body;
       if (!data.phnum) data.phnum = "Not given";
-      var result;
-      var smtpTransporter = nodemailer.createTransport(mg(auth));
-      var message = {
+      let result;
+      const smtpTransporter = nodemailer.createTransport(mg(auth));
+      const message = {
         from: 'caseysnb136@gmail.com',
         to: 'caseysnb136@gmail.com',
         subject: 'Caseys Contact Form: ' + data.name,
@@ -324,16 +352,16 @@ module.exports = function(db, passport) {
     });
 
     router.post('/applyToWork', function(req, res, next) {
-      var auth = {
+      const auth = {
         auth: {
           api_key: process.env.api_key,
           domain: process.env.domain
         }
       }
-      var data = req.body;
+      const data = req.body;
       if (!data.message) data.message = "Not given";
-      var smtpTransporter = nodemailer.createTransport(mg(auth));
-      var message = {
+      const smtpTransporter = nodemailer.createTransport(mg(auth));
+      const message = {
         from: 'caseysnb136@gmail.com',
         to: 'caseysnb136@gmail.com',
         subject: 'Job Application: ' + data.first_name + " " + data.last_name,
@@ -350,21 +378,21 @@ module.exports = function(db, passport) {
          }
       });
 
-      var applicant = new applicantSchema(data);
+      const applicant = new applicantSchema(data);
       applicant.save();
     });
 
     router.post('/reserveTable', function(req, res, next) {
-      var auth = {
+      const auth = {
         auth: {
           api_key: process.env.api_key,
           domain: process.env.domain
         }
       }
-      var data = req.body;
-      var result;
-      var smtpTransporter = nodemailer.createTransport(mg(auth));
-      var message = {
+      const data = req.body;
+      let result;
+      const smtpTransporter = nodemailer.createTransport(mg(auth));
+      const message = {
         from: 'caseysnb136@gmail.com',
         to: 'caseysnb136@gmail.com',
         subject: 'Caseys Reservation: ' + data.name,

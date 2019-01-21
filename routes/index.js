@@ -1,18 +1,18 @@
 module.exports = function(db, passport) {
-    var express         = require('express');
-    var router          = express.Router();
-    var db              = require('../db');
-    var bodyParser      = require('body-parser');
-    var nodemailer      = require('nodemailer');
-    var hoursSchema     = require('../models/hours.js');
-    var menuSchema      = require('../models/menu.js');
-    var eventsSchema    = require('../models/events.js');
-    var specialsSchema  = require('../models/specials.js');
-    var flash           = require('connect-flash');
-    var http            = require('http');
-    var Dropbox         = require('dropbox');
-    var validator       = require('validator');
-    var hours;
+    const express         = require('express');
+    const router          = express.Router();
+    const db              = require('../db');
+    const bodyParser      = require('body-parser');
+    const nodemailer      = require('nodemailer');
+    const hoursSchema     = require('../models/hours.js');
+    const menuSchema      = require('../models/menu.js');
+    const eventsSchema    = require('../models/events.js');
+    const specialsSchema  = require('../models/specials.js');
+    const flash           = require('connect-flash');
+    const http            = require('http');
+    const Dropbox         = require('dropbox');
+    const validator       = require('validator');
+    let hours;
 
     hoursSchema.find({}, {'_id': false, 'order': false}, function(err, returnHours) {
         hours = returnHours;
