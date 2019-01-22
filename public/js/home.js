@@ -191,6 +191,7 @@
 
     $.get('/backendServices/upcomingEvents', function(data) {
       var evs = data.events;
+      console.log(data);
       var length = (evs.length > 3) ? 4 : evs.length;
       for (var i = length-1; i >= 0; i--) {
         var date = moment(evs[i].start_time).format("MMMM Do @ h:mm a");

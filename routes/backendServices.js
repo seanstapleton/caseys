@@ -130,7 +130,7 @@ module.exports = function(db, passport) {
 
     router.get('/getEvents', async  (req, res) => {
       const prefix = 'https://graph.facebook.com';
-      const pageName = 'parkridgebar';
+      const pageName = 'caseysnewbuffalomichigan';
       const endpoint = `${prefix}/${pageName}/events?fields=name,start_time&access_token=${fbAccessToken}`;
       try {
         const response = await axios.get(endpoint);
@@ -148,16 +148,18 @@ module.exports = function(db, passport) {
 
     router.get('/upcomingEvents', async  (req, res) => {
       const prefix = 'https://graph.facebook.com';
-      const pageName = 'parkridgebar';
+      const pageName = 'caseysnewbuffalomichigan';
       const endpoint = `${prefix}/${pageName}/events?fields=name,start_time,cover&access_token=${fbAccessToken}`;
       try {
         const response = await axios.get(endpoint);
         const data = _.map(response.data.data, (o) => {
-          o.image = o.cover.source;
-          delete o.cover;
+          o.image = _.get(o, 'cover.source');
+          if (o.cover) {
+            delete o.cover;
+          }
           return o;
         });
-        const events = _.orderBy(response.data.data, ['start_time'], ['desc']);
+        const events = _.orderBy(data, ['start_time'], ['desc']);
         const futureEvents = _.reject(events, (e) => {
           const today = new Date();
           today.setHours(0,0,0,0);
@@ -166,7 +168,7 @@ module.exports = function(db, passport) {
         const fiveNextEvents = futureEvents.slice(Math.max(futureEvents.length - 5, 0));
         return res.send({ success: true, events: fiveNextEvents });
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
         return res.send({ success: false, err: e.message });
       }
     });
