@@ -434,7 +434,7 @@
     margin: 0 auto;
   }
   #soc-links li {
-    width: 19.23%;
+    width: calc(33% - 2px);
   }
   #soc-links img {
     width: 100%;
